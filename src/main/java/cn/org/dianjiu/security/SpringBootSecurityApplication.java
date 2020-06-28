@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootSecurityApplication {
 
     public static void main(String[] args) {
-        //System.setProperty("cfg.env","local");
+        System.setProperty("cfg.env","local");
         SpringApplication.run(SpringBootSecurityApplication.class, args);
     }
 
