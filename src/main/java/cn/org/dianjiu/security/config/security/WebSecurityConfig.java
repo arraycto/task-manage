@@ -1,6 +1,6 @@
 package cn.org.dianjiu.security.config.security;
 
-import cn.org.dianjiu.security.handler.CustomAccessDeniedHandler;
+import cn.org.dianjiu.security.common.handler.CustomAccessDeniedHandler;
 import cn.org.dianjiu.security.service.impl.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;

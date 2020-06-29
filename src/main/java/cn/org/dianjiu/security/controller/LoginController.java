@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 /**
  * 登录/退出相关
- * @author charlie
+ * @author DianJiu
  *
  */
 @Controller
 public class LoginController {
 	
 	@GetMapping("/")
-	public ModelAndView loginPage(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout) {
+	public ModelAndView loginPage(@RequestParam( "error", required = false) String error,
+			@RequestParam( "logout", required = false) String logout) {
 		ModelAndView mav = new ModelAndView();
 		if (error != null) {
 			mav.addObject("error", "用户名或者密码不正确");
@@ -27,8 +27,8 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login")
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout) {
+	public ModelAndView login(@RequestParam( "error", required = false) String error,
+			@RequestParam( "logout", required = false) String logout) {
 		ModelAndView mav = new ModelAndView();
 		if (error != null) {
 			mav.addObject("error", "用户名或者密码不正确");

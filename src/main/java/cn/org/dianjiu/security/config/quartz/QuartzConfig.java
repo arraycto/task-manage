@@ -14,7 +14,7 @@ import java.util.Properties;
 /**
  * Quartz配置类
  *
- * @author hellofly
+ * @author DianJiu
  * @date 2019/4/9
  */
 @Configuration

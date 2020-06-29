@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * druid数据源配置类
  *
- * @author hellofly
+ * @author DianJiu
  * @date 2019/4/9
  */
 @Configuration

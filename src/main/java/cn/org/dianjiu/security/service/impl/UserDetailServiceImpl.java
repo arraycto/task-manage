@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * 获取用户相关信息
- * @author charlie
+ * @author DianJiu
  *
  */
 @Service

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 /**
  * 用于不同权限页面访问测试
- * @author charlie
+ * @author DianJiu
  *
  */
 @Controller
