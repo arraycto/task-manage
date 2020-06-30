@@ -157,7 +157,7 @@ CREATE TABLE `t_task_records` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务执行情况记录表';
 
 DROP TABLE IF EXISTS `t_task_errors`;
-CREATE TABLE `t_quartz_task_errors` (
+CREATE TABLE `t_task_errors` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `taskExecuteRecordId` varchar(64) NOT NULL COMMENT '任务执行记录Id',
   `errorKey` varchar(1024) NOT NULL COMMENT '信息关键字',

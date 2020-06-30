@@ -1,5 +1,6 @@
 package cn.org.dianjiu.task;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
