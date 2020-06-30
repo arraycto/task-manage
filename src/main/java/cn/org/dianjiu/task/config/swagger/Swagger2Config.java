@@ -1,5 +1,6 @@
 package cn.org.dianjiu.task.config.swagger;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -14,13 +15,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
+    /** 是否开启swagger */
+    @Value("${swagger.enabled}")
+    private boolean enabled;
+
     @Bean
     public Docket createRestApi() {
         return  new Docket(DocumentationType.SWAGGER_2)
+                // 是否启用Swagger
+                .enable(enabled)
                 .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.point9.knife4j.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.org.dianjiu.task.controller"))
                 .paths(PathSelectors.any())
                 .build();
 
