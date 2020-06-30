@@ -121,8 +121,8 @@ COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-DROP TABLE IF EXISTS `t_quartz_task_details`;
-CREATE TABLE `t_quartz_task_details` (
+DROP TABLE IF EXISTS `t_task_details`;
+CREATE TABLE `t_task_details` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `task_no` varchar(64) NOT NULL COMMENT '任务编号',
   `task_name` varchar(64) NOT NULL COMMENT '任务名称',
@@ -134,39 +134,36 @@ CREATE TABLE `t_quartz_task_details` (
   `send_url` varchar(64) DEFAULT NULL COMMENT '请求地址',
   `send_param` text DEFAULT NULL COMMENT '请求参数',
   `status` varchar(16) NOT NULL COMMENT '任务状态',
-  `version` int(11) NOT NULL COMMENT '版本号：需要乐观锁控制',
-  `prev_execute_time` bigint(13) NOT NULL COMMENT '上次执行时间',
   `next_execute_time` bigint(13) NOT NULL COMMENT '下次执行时间',
-  `create_time` bigint(13) NOT NULL COMMENT '创建时间',
-  `update_time` bigint(13) DEFAULT NULL COMMENT '最近修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务信息表';
 
-DROP TABLE IF EXISTS `t_quartz_task_records`;
-CREATE TABLE `t_quartz_task_records` (
+DROP TABLE IF EXISTS `t_task_records`;
+CREATE TABLE `t_task_records` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `task_no` varchar(64) NOT NULL COMMENT '任务编号',
   `task_name` varchar(64) NOT NULL COMMENT '任务名称',
+  `group_name` varchar(64) NOT NULL COMMENT '分组名称',
   `send_type` varchar(64) DEFAULT NULL COMMENT '请求方式',
   `send_url` varchar(64) DEFAULT NULL COMMENT '请求地址',
   `send_param` text DEFAULT NULL COMMENT '请求参数',
   `return_info` text DEFAULT NULL COMMENT '返回信息',
   `execute_time` bigint(13) NOT NULL COMMENT '执行时间',
   `task_status` varchar(16) NOT NULL COMMENT '任务状态',
-  `create_time` bigint(13) NOT NULL COMMENT '创建时间',
-  `update_time` bigint(13) DEFAULT NULL COMMENT '最近修改时间',
-  PRIMARY KEY (`id`),
-  KEY `idx_task_records_taskno` (`task_no`)
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务执行情况记录表';
 
-DROP TABLE IF EXISTS `t_quartz_task_errors`;
+DROP TABLE IF EXISTS `t_task_errors`;
 CREATE TABLE `t_quartz_task_errors` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `taskExecuteRecordId` varchar(64) NOT NULL COMMENT '任务执行记录Id',
   `errorKey` varchar(1024) NOT NULL COMMENT '信息关键字',
   `errorValue` text COMMENT '信息内容',
-  `createTime` bigint(13) NOT NULL COMMENT '创建时间',
-  `lastModifyTime` bigint(13) DEFAULT NULL COMMENT '最近修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务出错现场信息表';
 
