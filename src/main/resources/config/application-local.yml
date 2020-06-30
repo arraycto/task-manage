@@ -37,6 +37,13 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-# 自定义配置
+# 日志配置
+logging:
+  level:
+    cn.org.dianjiu.task: debug
+    org.springframework: warn
+
+# Swagger配置
 swagger:
+  # 是否开启swagger
   enabled: true
