@@ -39,6 +39,7 @@ mybatis:
 
 # 日志配置
 logging:
+  config: classpath:logback.xml
   level:
     cn.org.dianjiu.task: debug
     org.springframework: warn
