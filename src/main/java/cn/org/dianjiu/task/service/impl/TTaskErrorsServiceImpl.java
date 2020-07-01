@@ -29,7 +29,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     private TTaskErrorsDao tTaskErrorsDao;
 
     @Override
-    public TTaskErrorsResp getById(Long id) {
+    public TTaskErrorsResp getById(Integer id) {
         TTaskErrorsResp tTaskErrorsResp = new TTaskErrorsResp();
         TTaskErrors tTaskErrors = tTaskErrorsDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrors)){
@@ -85,7 +85,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     }
 
     @Override
-    public List<TTaskErrorsResp> listByIds(List<Long> ids) {
+    public List<TTaskErrorsResp> listByIds(List<Integer> ids) {
       List<TTaskErrorsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -171,7 +171,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     }
 
     @Override
-    public int deleteById(Long id) {
+    public int deleteById(Integer id) {
         return tTaskErrorsDao.deleteById(id);
     }
 
@@ -187,7 +187,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     }
 
     @Override
-    public int deleteByIds(List<Long> ids) {
+    public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
             new BusinessException("400","id集合不能为空！");
@@ -210,5 +210,6 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         return tTaskErrorsDao.countByEntity(tTaskErrors);
     }
+
 
 }

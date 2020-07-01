@@ -2,9 +2,11 @@ package cn.org.dianjiu.task.service.impl;
 
 import cn.org.dianjiu.task.common.exception.BusinessException;
 import cn.org.dianjiu.task.common.req.TTaskRecordsReq;
+import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
 import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
 import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TTaskRecordsDao;
+import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import cn.org.dianjiu.task.service.TTaskRecordsServiceI;
 import cn.org.dianjiu.task.entity.TTaskRecords;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,11 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
 
     @Autowired
     private TTaskRecordsDao tTaskRecordsDao;
+    @Autowired
+    private TTaskDetailsServiceI tTaskDetailsService;
 
     @Override
-    public TTaskRecordsResp getById(Long id) {
+    public TTaskRecordsResp getById(Integer id) {
         TTaskRecordsResp tTaskRecordsResp = new TTaskRecordsResp();
         TTaskRecords tTaskRecords = tTaskRecordsDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskRecords)){
@@ -85,7 +89,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
     }
 
     @Override
-    public List<TTaskRecordsResp> listByIds(List<Long> ids) {
+    public List<TTaskRecordsResp> listByIds(List<Integer> ids) {
       List<TTaskRecordsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -171,7 +175,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
     }
 
     @Override
-    public int deleteById(Long id) {
+    public int deleteById(Integer id) {
         return tTaskRecordsDao.deleteById(id);
     }
 
@@ -187,7 +191,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
     }
 
     @Override
-    public int deleteByIds(List<Long> ids) {
+    public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
             new BusinessException("400","id集合不能为空！");
@@ -209,6 +213,35 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         }
         ObjectUtils.copyProperties(tTaskRecordsReq,tTaskRecords);
         return tTaskRecordsDao.countByEntity(tTaskRecords);
+    }
+
+    @Override
+    public TTaskRecordsResp addTaskRecords(Integer id) {
+        TTaskRecordsReq tTaskRecordsReq = new TTaskRecordsReq();
+        //根据ID查询TaskDetail信息
+        TTaskDetailsResp taskDetailsResp = tTaskDetailsService.getById(id);
+        //对象拷贝，新增到执行记录表中
+        ObjectUtils.copyProperties(taskDetailsResp,tTaskRecordsReq);
+        insert(tTaskRecordsReq);
+        //查询改记录
+        TTaskRecordsResp tTaskRecordsResp = getByEntity(tTaskRecordsReq);
+        if (ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsResp)) {
+            new BusinessException("400", "新增定时任务执行记录异常！TaskDetail-ID【"+id+"】");
+        }
+        return tTaskRecordsResp;
+    }
+
+    @Override
+    public int updateRecordById(int num, Integer id,String result) {
+        TTaskRecordsReq tTaskRecordsReq = new TTaskRecordsReq();
+        tTaskRecordsReq.setId(id);
+        tTaskRecordsReq.setReturnInfo(result);
+        if(0 == num){ //错误次数为0，则成功
+            tTaskRecordsReq.setTaskStatus("1");
+            return update(tTaskRecordsReq);
+        }
+        tTaskRecordsReq.setTaskStatus("0");
+        return update(tTaskRecordsReq);
     }
 
 }

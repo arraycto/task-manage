@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface TTaskRecordsServiceI {
    
-    TTaskRecordsResp getById(Long id);
+    TTaskRecordsResp getById(Integer id);
 
     TTaskRecordsResp getByEntity(TTaskRecordsReq tTaskRecordsReq);
 
     List<TTaskRecordsResp> listByEntity(TTaskRecordsReq tTaskRecordsReq);
 
-    List<TTaskRecordsResp> listByIds(List<Long> ids);
+    List<TTaskRecordsResp> listByIds(List<Integer> ids);
 
     int insert(TTaskRecordsReq tTaskRecordsReq);
 
@@ -30,13 +30,17 @@ public interface TTaskRecordsServiceI {
 
     int updateBatch(List<TTaskRecordsReq> list);
 
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
     int deleteByEntity(TTaskRecordsReq tTaskRecordsReq);
   
-    int deleteByIds(List<Long> list);
+    int deleteByIds(List<Integer> list);
     
     int countAll();
     
     int countByEntity(TTaskRecordsReq tTaskRecordsReq);
+
+    TTaskRecordsResp addTaskRecords(Integer id);
+
+    int updateRecordById(int num, Integer id,String result);
 }

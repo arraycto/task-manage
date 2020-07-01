@@ -8,7 +8,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -29,7 +28,7 @@ import java.util.Map.Entry;
  * @author DianJiu
  * @date 2019/4/9
  */
-public class HttpClientUtil {
+public class HttpClientUtils {
 
     /**
      * 连接主机超时（30s）
@@ -46,9 +45,9 @@ public class HttpClientUtil {
      */
     public static final int HTTP_SUCCESS_STATUS_CODE = 200;
 
-    private static final Logger logger = LogManager.getLogger(HttpClientUtil.class);
+    private static final Logger logger = LogManager.getLogger(HttpClientUtils.class);
 
-    private HttpClientUtil() {
+    private HttpClientUtils() {
     }
 
     /**
@@ -90,8 +89,8 @@ public class HttpClientUtil {
         } catch (Exception e) {
             logger.error("Error in getMap", e);
         } finally {
-            HttpClientUtils.closeQuietly(httpclient);
-            HttpClientUtils.closeQuietly(response);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(httpclient);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(response);
         }
         return result;
     }
@@ -135,8 +134,8 @@ public class HttpClientUtil {
         } catch (Exception e) {
             logger.error("Error in postFormData", e);
         } finally {
-            HttpClientUtils.closeQuietly(httpclient);
-            HttpClientUtils.closeQuietly(response);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(httpclient);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(response);
         }
         return result;
     }
@@ -177,8 +176,8 @@ public class HttpClientUtil {
         } catch (Exception e) {
             logger.error("Error in postJson", e);
         } finally {
-            HttpClientUtils.closeQuietly(httpclient);
-            HttpClientUtils.closeQuietly(response);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(httpclient);
+            org.apache.http.client.utils.HttpClientUtils.closeQuietly(response);
         }
         return result;
     }

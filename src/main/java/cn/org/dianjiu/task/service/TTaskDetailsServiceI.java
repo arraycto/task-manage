@@ -3,6 +3,7 @@ package cn.org.dianjiu.task.service;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
 import cn.org.dianjiu.task.dao.TTaskDetailsDao;
+import org.quartz.SchedulerException;
 
 import java.util.List;
 
@@ -14,13 +15,13 @@ import java.util.List;
  */
 public interface TTaskDetailsServiceI {
    
-    TTaskDetailsResp getById(Long id);
+    TTaskDetailsResp getById(Integer id);
 
     TTaskDetailsResp getByEntity(TTaskDetailsReq tTaskDetailsReq);
 
     List<TTaskDetailsResp> listByEntity(TTaskDetailsReq tTaskDetailsReq);
 
-    List<TTaskDetailsResp> listByIds(List<Long> ids);
+    List<TTaskDetailsResp> listByIds(List<Integer> ids);
 
     int insert(TTaskDetailsReq tTaskDetailsReq);
 
@@ -30,15 +31,19 @@ public interface TTaskDetailsServiceI {
 
     int updateBatch(List<TTaskDetailsReq> list);
 
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
     int deleteByEntity(TTaskDetailsReq tTaskDetailsReq);
   
-    int deleteByIds(List<Long> list);
+    int deleteByIds(List<Integer> list);
     
     int countAll();
     
     int countByEntity(TTaskDetailsReq tTaskDetailsReq);
 
-    int optionTask(Long id);
+    int optionTask(Integer id);
+
+    int runtask(Integer id);
+
+    void initLoadOnlineTasks() throws SchedulerException;
 }

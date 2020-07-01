@@ -3,7 +3,9 @@ package cn.org.dianjiu.task.dao;
 import cn.org.dianjiu.task.entity.TMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**

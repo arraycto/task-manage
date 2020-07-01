@@ -21,7 +21,7 @@ public interface TTaskErrorsDao {
      * @param id 主键
      * @return 实例对象
      */
-    TTaskErrors getById(@NotNull Long id);
+    TTaskErrors getById(@NotNull Integer id);
     
     /**
      * 通过实体不为空的属性作为筛选条件查询对象列表
@@ -45,7 +45,7 @@ public interface TTaskErrorsDao {
      * @param list 实例对象
      * @return 对象列表
      */
-    List<TTaskErrors> listByIds(@NotEmpty List<Long> list);
+    List<TTaskErrors> listByIds(@NotEmpty List<Integer> list);
 
     /**
      * 新增实体属性不为null的记录
@@ -94,7 +94,7 @@ public interface TTaskErrorsDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(@NotNull Long id);
+    int deleteById(@NotNull Integer id);
     
     /**
      * 通过实体非空属性删除
@@ -110,7 +110,7 @@ public interface TTaskErrorsDao {
      * @param list 实例对象
      * @return 影响行数
      */
-    int deleteByIds(@NotEmpty List<Long> list);
+    int deleteByIds(@NotEmpty List<Integer> list);
     
     int countAll();
     

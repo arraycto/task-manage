@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface TTaskErrorsServiceI {
    
-    TTaskErrorsResp getById(Long id);
+    TTaskErrorsResp getById(Integer id);
 
     TTaskErrorsResp getByEntity(TTaskErrorsReq tTaskErrorsReq);
 
     List<TTaskErrorsResp> listByEntity(TTaskErrorsReq tTaskErrorsReq);
 
-    List<TTaskErrorsResp> listByIds(List<Long> ids);
+    List<TTaskErrorsResp> listByIds(List<Integer> ids);
 
     int insert(TTaskErrorsReq tTaskErrorsReq);
 
@@ -30,11 +30,11 @@ public interface TTaskErrorsServiceI {
 
     int updateBatch(List<TTaskErrorsReq> list);
 
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
     int deleteByEntity(TTaskErrorsReq tTaskErrorsReq);
   
-    int deleteByIds(List<Long> list);
+    int deleteByIds(List<Integer> list);
     
     int countAll();
     
