@@ -57,7 +57,7 @@ public class TTaskDetails {
     /**
     * 下次执行时间
     */
-    private Long nextExecuteTime;
+    private Date nextExecuteTime;
     /**
      * 创建人
      */

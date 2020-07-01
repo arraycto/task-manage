@@ -14,7 +14,7 @@
         <result property="sendUrl" column="send_url" jdbcType="VARCHAR"/>
         <result property="sendParam" column="send_param" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
-        <result property="nextExecuteTime" column="next_execute_time" jdbcType="INTEGER"/>
+        <result property="nextExecuteTime" column="next_execute_time" jdbcType="TIMESTAMP"/>
         <result property="creator" column="creator" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updator" column="updator" jdbcType="VARCHAR"/>
@@ -74,7 +74,7 @@
                 and status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="nextExecuteTime != null">
-                and next_execute_time = #{nextExecuteTime,jdbcType=INTEGER}
+                and next_execute_time = #{nextExecuteTime,jdbcType=TIMESTAMP}
             </if>
             <if test="creator != null">
                 and creator = #{creator,jdbcType=VARCHAR}
@@ -131,7 +131,7 @@
                 and status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="nextExecuteTime != null">
-                and next_execute_time = #{nextExecuteTime,jdbcType=INTEGER}
+                and next_execute_time = #{nextExecuteTime,jdbcType=TIMESTAMP}
             </if>
             <if test="creator != null">
                 and creator = #{creator,jdbcType=VARCHAR}
@@ -248,7 +248,7 @@
                 #{status,jdbcType=VARCHAR},
             </if>
             <if test="nextExecuteTime != null">
-                #{nextExecuteTime,jdbcType=INTEGER},
+                #{nextExecuteTime,jdbcType=TIMESTAMP},
             </if>
             <if test="creator != null">
                 #{creator,jdbcType=VARCHAR},
@@ -276,7 +276,7 @@
             #{item.taskName,jdbcType=VARCHAR}, #{item.groupNo,jdbcType=VARCHAR}, #{item.groupName,jdbcType=VARCHAR},
             #{item.taskDesc,jdbcType=VARCHAR}, #{item.cornRule,jdbcType=VARCHAR}, #{item.sendType,jdbcType=VARCHAR},
             #{item.sendUrl,jdbcType=VARCHAR}, #{item.sendParam,jdbcType=VARCHAR}, #{item.status,jdbcType=VARCHAR},
-            #{item.nextExecuteTime,jdbcType=INTEGER}, #{item.creator,jdbcType=VARCHAR},
+            #{item.nextExecuteTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
             #{item.createTime,jdbcType=TIMESTAMP}, #{item.updator,jdbcType=VARCHAR},
             #{item.updateTime,jdbcType=TIMESTAMP})
         </foreach>
@@ -317,7 +317,7 @@
                 status = #{status,jdbcType=VARCHAR},
             </if>
             <if test="nextExecuteTime != null">
-                next_execute_time = #{nextExecuteTime,jdbcType=INTEGER},
+                next_execute_time = #{nextExecuteTime,jdbcType=TIMESTAMP},
             </if>
             <if test="creator != null and creator != ''">
                 creator = #{creator,jdbcType=VARCHAR},
@@ -370,7 +370,7 @@
                 status = #{set.status,jdbcType=VARCHAR},
             </if>
             <if test="where.nextExecuteTime == null and set.nextExecuteTime != null">
-                next_execute_time = #{set.nextExecuteTime,jdbcType=INTEGER},
+                next_execute_time = #{set.nextExecuteTime,jdbcType=TIMESTAMP},
             </if>
             <if test="where.creator == null and set.creator != null and set.creator != ''">
                 creator = #{set.creator,jdbcType=VARCHAR},
@@ -420,7 +420,7 @@
                 and status = #{where.status,jdbcType=VARCHAR}
             </if>
             <if test="where.nextExecuteTime != null">
-                and next_execute_time = #{where.nextExecuteTime,jdbcType=INTEGER}
+                and next_execute_time = #{where.nextExecuteTime,jdbcType=TIMESTAMP}
             </if>
             <if test="where.creator != null">
                 and creator = #{where.creator,jdbcType=VARCHAR}
@@ -563,7 +563,7 @@
                 and status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="nextExecuteTime != null">
-                and next_execute_time = #{nextExecuteTime,jdbcType=INTEGER}
+                and next_execute_time = #{nextExecuteTime,jdbcType=TIMESTAMP}
             </if>
             <if test="creator != null">
                 and creator = #{creator,jdbcType=VARCHAR}
@@ -629,7 +629,7 @@
                 and status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="nextExecuteTime != null">
-                and next_execute_time = #{nextExecuteTime,jdbcType=INTEGER}
+                and next_execute_time = #{nextExecuteTime,jdbcType=TIMESTAMP}
             </if>
             <if test="creator != null">
                 and creator = #{creator,jdbcType=VARCHAR}

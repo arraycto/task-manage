@@ -150,7 +150,7 @@ CREATE TABLE `t_task_details` (
   `send_url` varchar(64) DEFAULT NULL COMMENT '请求地址',
   `send_param` text DEFAULT NULL COMMENT '请求参数',
   `status` varchar(16) NOT NULL COMMENT '任务状态',
-  `next_execute_time` bigint(13) NOT NULL COMMENT '下次执行时间',
+  `next_execute_time` datetime NOT NULL COMMENT '下次执行时间',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
