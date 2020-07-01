@@ -18,7 +18,7 @@
     </sql>
 
     <!--通过Id查询单个对象-->
-    <select id="getById" resultMap="TTaskErrorsResultMap" parameterType="java.lang.Long">
+    <select id="getById" resultMap="TTaskErrorsResultMap" parameterType="java.lang.Integer">
         select
         <include refid="table_field"/>
         from t_task_errors
@@ -304,7 +304,7 @@
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById" parameterType="java.lang.Long">
+    <delete id="deleteById" parameterType="java.lang.Integer">
         delete from t_task_errors where id = #{id,jdbcType=INTEGER}
     </delete>
 

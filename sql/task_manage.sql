@@ -1,7 +1,7 @@
 
 DROP TABLE IF EXISTS `t_menu`;
 CREATE TABLE `t_menu` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '菜单名称',
   `menu_url` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'Controller路径',
   `menu_code` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '菜单编码',
@@ -33,7 +33,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `role_name` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '角色名称',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -56,7 +56,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_menus`;
 CREATE TABLE `t_role_menus` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '角色菜单id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色菜单id',
   `role_id` int(8) DEFAULT NULL COMMENT '角色id',
   `menu_id` int(8) DEFAULT NULL COMMENT '菜单id',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
@@ -94,7 +94,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
@@ -117,7 +117,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_roles`;
 CREATE TABLE `t_user_roles` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户角色对照ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户角色对照ID',
   `user_id` int(8) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(8) DEFAULT NULL COMMENT '角色ID',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
@@ -139,7 +139,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 DROP TABLE IF EXISTS `t_task_details`;
 CREATE TABLE `t_task_details` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `task_no` varchar(64) NOT NULL COMMENT '任务编号',
   `task_name` varchar(64) NOT NULL COMMENT '任务名称',
   `group_no` varchar(64) NOT NULL COMMENT '分组编号',
@@ -160,7 +160,7 @@ CREATE TABLE `t_task_details` (
 
 DROP TABLE IF EXISTS `t_task_records`;
 CREATE TABLE `t_task_records` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `task_name` varchar(64) NOT NULL COMMENT '任务名称',
   `group_name` varchar(64) NOT NULL COMMENT '分组名称',
   `send_type` varchar(64) DEFAULT NULL COMMENT '请求方式',
@@ -178,7 +178,7 @@ CREATE TABLE `t_task_records` (
 
 DROP TABLE IF EXISTS `t_task_errors`;
 CREATE TABLE `t_task_errors` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `taskExecuteRecordId` varchar(64) NOT NULL COMMENT '任务执行记录Id',
   `errorKey` varchar(1024) NOT NULL COMMENT '信息关键字',
   `errorValue` text COMMENT '信息内容',

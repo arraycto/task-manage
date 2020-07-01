@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data 
 public class TTaskDetails {
     
-    private Long id;
+    private Integer id;
     /**
     * 任务编号
     */

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 public class TTaskRecordsReq implements Serializable {
     private static final long serialVersionUID = 9155949248117098529L;
-    private Long id;
+    private Integer id;
     @ApiModelProperty("任务名称")
     private String taskName;
     @ApiModelProperty("分组名称")

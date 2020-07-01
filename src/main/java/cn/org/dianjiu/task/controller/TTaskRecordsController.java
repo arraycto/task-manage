@@ -33,7 +33,7 @@ public class TTaskRecordsController {
      * @return 实例对象
      */
     @GetMapping(value = "/get/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskRecordsResp> getById(@PathVariable Long id) {
+    public RespVO<TTaskRecordsResp> getById(@PathVariable Integer id) {
       RespVO<TTaskRecordsResp> result = new RespVO<>();
         TTaskRecordsResp tTaskRecordsResp = tTaskRecordsService.getById(id);
       if(null == tTaskRecordsResp){
@@ -136,7 +136,7 @@ public class TTaskRecordsController {
      * @return 实例对象
      */
     @DeleteMapping(value = "/delete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskRecordsResp> deleteOne(@PathVariable Long id){
+    public RespVO<TTaskRecordsResp> deleteOne(@PathVariable Integer id){
       RespVO<TTaskRecordsResp> result = new RespVO<>();
         int delete = tTaskRecordsService.deleteById(id);
       if(delete != 1){
@@ -156,7 +156,7 @@ public class TTaskRecordsController {
      * @return 实例对象
      */
     @DeleteMapping(value = "/delete",produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskRecordsResp> deleteBatch(@RequestBody List<Long> ids){
+    public RespVO<TTaskRecordsResp> deleteBatch(@RequestBody List<Integer> ids){
         RespVO<TTaskRecordsResp> result = new RespVO<>();
       int dels = 0;
         if (ids!=null&&ids.size()>0) {

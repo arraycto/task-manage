@@ -1,10 +1,13 @@
 package cn.org.dianjiu.task.controller;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
+import cn.org.dianjiu.task.common.util.ExceptionUtils;
 import cn.org.dianjiu.task.common.vo.RespVO;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -32,14 +35,34 @@ public class TTaskDetailsController {
     private TTaskDetailsServiceI tTaskDetailsService;
 
     /**
+     * 立即运行一次定时任务
+     *
+     * @return
+     */
+    @RequestMapping(value = "/runtask", method = RequestMethod.POST)
+    public RespVO<TTaskDetailsResp> runtask(@RequestParam(value = "id", required = true) Integer id) {
+        RespVO<TTaskDetailsResp> result = new RespVO<>();
+        int run = tTaskDetailsService.runtask(id);
+        if (run != 1) {
+            result.setCode("400");
+            result.setMsg("立即执行定时任务失败！");
+            return result;
+        }
+        result.setCode("200");
+        result.setMsg("立即执行定时任务成功！");
+        return result;
+    }
+
+    /**
      * 启动 或者 暂定定时任务
      *
      * @param id
      * @return
      */
     @RequestMapping(value = "/optionTask", method = RequestMethod.GET)
-    public RespVO<TTaskDetailsResp> optionTask(Long id) {
+    public RespVO<TTaskDetailsResp> optionTask(Integer id) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
+        // TODO 对异常做统一处理
         int option = tTaskDetailsService.optionTask(id);
         if (option != 1) {
             result.setCode("400");
@@ -58,7 +81,7 @@ public class TTaskDetailsController {
      * @return 实例对象
      */
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskDetailsResp> getById(@PathVariable Long id) {
+    public RespVO<TTaskDetailsResp> getById(@PathVariable Integer id) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         TTaskDetailsResp tTaskDetailsResp = tTaskDetailsService.getById(id);
         if (null == tTaskDetailsResp) {
@@ -161,7 +184,7 @@ public class TTaskDetailsController {
      * @return 实例对象
      */
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskDetailsResp> deleteOne(@PathVariable Long id) {
+    public RespVO<TTaskDetailsResp> deleteOne(@PathVariable Integer id) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int delete = tTaskDetailsService.deleteById(id);
         if (delete != 1) {
@@ -181,7 +204,7 @@ public class TTaskDetailsController {
      * @return 实例对象
      */
     @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskDetailsResp> deleteBatch(@RequestBody List<Long> ids) {
+    public RespVO<TTaskDetailsResp> deleteBatch(@RequestBody List<Integer> ids) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int dels = 0;
         if (ids != null && ids.size() > 0) {

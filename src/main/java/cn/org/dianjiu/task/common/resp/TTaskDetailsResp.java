@@ -17,7 +17,8 @@ import java.io.Serializable;
 @Data
 public class TTaskDetailsResp implements Serializable {
     private static final long serialVersionUID = 9155949248117098529L;
-    private Long id;
+    @ApiModelProperty("ID")
+    private Integer id;
     @ApiModelProperty("任务编号")
     private String taskNo;
     @ApiModelProperty("任务名称")
