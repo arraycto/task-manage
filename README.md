@@ -13,13 +13,14 @@
 
 ## 项目功能
 1. springboot集成security、quartz，使用druid连接池 
-2. 支持用户登录、登出、新增、权限管理的基础功能
-2. 支持http请求任务定时调度，当前支持get、post表单(formdata)、post Json三种请求类型，并记录返回内容
-3. 支持调用接口(/tTask/add)进行http任务添加  
-4. 通过web界面根据jobname或jobgroup进行查询
-5. 通过web界面进行jobgroup的新增、删除的管理操作
-6. 通过web界面进行任务管理，包括任务启用、停用、立即运行、新增、修改、删除等功能
-7. 通过web页面查看任务执行历史、下次执行时间，执行错误日志
+2. 同时支持swagger2、knife4j接口API调试
+3. 支持用户登录、登出、新增、权限管理的基础功能
+4. 支持http请求任务定时调度，当前支持get、post表单(formdata)、post Json三种请求类型，并记录返回内容
+5. 支持调用接口(/tTask/add)进行http任务添加 
+6. 通过web界面根据jobname或jobgroup进行查询
+7. 通过web界面进行jobgroup的新增、删除的管理操作
+8. 通过web界面进行任务管理，包括任务启用、停用、立即运行、新增、修改、删除等功能
+9. 通过web页面查看任务执行历史、下次执行时间，执行错误日志
 
 
 ## 部署方式
