@@ -35,6 +35,10 @@ DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
   `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `role_name` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '角色名称',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -55,6 +59,10 @@ CREATE TABLE `t_role_menus` (
   `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '角色菜单id',
   `role_id` int(8) DEFAULT NULL COMMENT '角色id',
   `menu_id` int(8) DEFAULT NULL COMMENT '菜单id',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -89,6 +97,10 @@ CREATE TABLE `t_user` (
   `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -108,6 +120,10 @@ CREATE TABLE `t_user_roles` (
   `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '用户角色对照ID',
   `user_id` int(8) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(8) DEFAULT NULL COMMENT '角色ID',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -135,7 +151,9 @@ CREATE TABLE `t_task_details` (
   `send_param` text DEFAULT NULL COMMENT '请求参数',
   `status` varchar(16) NOT NULL COMMENT '任务状态',
   `next_execute_time` bigint(13) NOT NULL COMMENT '下次执行时间',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务信息表';
@@ -151,7 +169,9 @@ CREATE TABLE `t_task_records` (
   `return_info` text DEFAULT NULL COMMENT '返回信息',
   `execute_time` bigint(13) NOT NULL COMMENT '执行时间',
   `task_status` varchar(16) NOT NULL COMMENT '任务状态',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务执行情况记录表';
@@ -162,7 +182,9 @@ CREATE TABLE `t_task_errors` (
   `taskExecuteRecordId` varchar(64) NOT NULL COMMENT '任务执行记录Id',
   `errorKey` varchar(1024) NOT NULL COMMENT '信息关键字',
   `errorValue` text COMMENT '信息内容',
+  `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '修改人',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务出错现场信息表';
