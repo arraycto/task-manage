@@ -51,7 +51,7 @@ public class TTaskDetails {
     */
     private String sendParam;
     /**
-    * 任务状态
+    * 任务状态 0-停用 1-启用
     */
     private String status;
     /**

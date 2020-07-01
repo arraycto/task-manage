@@ -36,7 +36,7 @@ public class TTaskDetailsResp implements Serializable {
     private String sendUrl;
     @ApiModelProperty("请求参数")
     private String sendParam;
-    @ApiModelProperty("任务状态")
+    @ApiModelProperty("任务状态 0-停用 1-启用")
     private String status;
     @ApiModelProperty("下次执行时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

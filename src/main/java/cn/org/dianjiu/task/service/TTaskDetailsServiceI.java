@@ -39,4 +39,6 @@ public interface TTaskDetailsServiceI {
     int countAll();
     
     int countByEntity(TTaskDetailsReq tTaskDetailsReq);
+
+    int optionTask(Long id);
 }

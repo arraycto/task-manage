@@ -211,4 +211,23 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI {
         return tTaskDetailsDao.countByEntity(tTaskDetails);
     }
 
+    @Override
+    public int optionTask(Long id) {
+        //根据taskNo查询定时任务
+        TTaskDetailsResp taskDetailsResp = getById(id);
+        if (ObjectUtils.checkObjAllFieldsIsNull(taskDetailsResp)) {
+            new BusinessException("400","根据taskID没有查到信息！");
+        }
+        TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
+        tTaskDetailsReq.setId(id);
+        String status = taskDetailsResp.getStatus();
+        if ("1".equals(status)){
+            tTaskDetailsReq.setStatus("0");
+            return update(tTaskDetailsReq);
+        }
+        tTaskDetailsReq.setStatus("1");
+        //查到取出原有状态
+        return update(tTaskDetailsReq);
+    }
+
 }
