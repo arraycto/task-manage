@@ -1,11 +1,17 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TUserReq;
+import cn.org.dianjiu.task.common.resp.TUserResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TUserDao;
 import cn.org.dianjiu.task.service.TUserServiceI;
 import cn.org.dianjiu.task.entity.TUser;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class TUserServiceImpl implements TUserServiceI {
     @Autowired
     private TUserDao tUserDao;
 
+    @Override
     public TUserResp getById(Integer id) {
         TUserResp tUserResp = new TUserResp();
         TUser tUser = tUserDao.getById(id);
@@ -33,6 +40,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserResp;
     }
 
+    @Override
     public TUserResp getByEntity(TUserReq tUserReq) {
       TUserResp tUserResp = new TUserResp();
         TUser tUser = new TUser();
@@ -50,6 +58,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserResp;
     }
 
+    @Override
     public List<TUserResp> listByEntity(TUserReq tUserReq) {
         List<TUserResp> list = new ArrayList<>();
         TUser tUser = new TUser();
@@ -75,6 +84,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return list;
     }
 
+    @Override
     public List<TUserResp> listByIds(List<Integer> ids) {
       List<TUserResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
@@ -96,6 +106,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return list;
     }
 
+    @Override
     public int insert(TUserReq tUserReq) {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
@@ -109,6 +120,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserDao.insert(tUser);
     }
 
+    @Override
     public int insertBatch(List<TUserReq> list) {
       List<TUser> tUsers = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -127,6 +139,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserDao.insertBatch(tUsers);
     }
 
+    @Override
     public int update(TUserReq tUserReq) {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
@@ -138,6 +151,7 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserDao.update(tUser);
     }
 
+    @Override
     public int updateBatch(List<TUserReq> list) {
       List<TUser> tUsers = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -156,10 +170,12 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserDao.updateBatch(tUsers);
     }
 
+    @Override
     public int deleteById(Integer id) {
         return tUserDao.deleteById(id);
     }
 
+    @Override
     public int deleteByEntity(TUserReq tUserReq) {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
@@ -169,7 +185,8 @@ public class TUserServiceImpl implements TUserServiceI {
         ObjectUtils.copyProperties(tUserReq,tUser);
         return tUserDao.deleteByEntity(tUser);
     }
-  
+
+    @Override
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -178,10 +195,12 @@ public class TUserServiceImpl implements TUserServiceI {
         return tUserDao.deleteByIds(ids);
     }
 
+    @Override
     public int countAll() {
         return tUserDao.countAll();
     }
-    
+
+    @Override
     public int countByEntity(TUserReq tUserReq) {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){

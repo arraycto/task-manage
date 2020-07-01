@@ -1,11 +1,17 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TRoleReq;
+import cn.org.dianjiu.task.common.resp.TRoleResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TRoleDao;
 import cn.org.dianjiu.task.service.TRoleServiceI;
 import cn.org.dianjiu.task.entity.TRole;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
     @Autowired
     private TRoleDao tRoleDao;
 
+    @Override
     public TRoleResp getById(Integer id) {
         TRoleResp tRoleResp = new TRoleResp();
         TRole tRole = tRoleDao.getById(id);
@@ -33,6 +40,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleResp;
     }
 
+    @Override
     public TRoleResp getByEntity(TRoleReq tRoleReq) {
       TRoleResp tRoleResp = new TRoleResp();
         TRole tRole = new TRole();
@@ -50,6 +58,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleResp;
     }
 
+    @Override
     public List<TRoleResp> listByEntity(TRoleReq tRoleReq) {
         List<TRoleResp> list = new ArrayList<>();
         TRole tRole = new TRole();
@@ -75,6 +84,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return list;
     }
 
+    @Override
     public List<TRoleResp> listByIds(List<Integer> ids) {
       List<TRoleResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
@@ -96,6 +106,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return list;
     }
 
+    @Override
     public int insert(TRoleReq tRoleReq) {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
@@ -109,6 +120,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleDao.insert(tRole);
     }
 
+    @Override
     public int insertBatch(List<TRoleReq> list) {
       List<TRole> tRoles = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -127,6 +139,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleDao.insertBatch(tRoles);
     }
 
+    @Override
     public int update(TRoleReq tRoleReq) {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
@@ -138,6 +151,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleDao.update(tRole);
     }
 
+    @Override
     public int updateBatch(List<TRoleReq> list) {
       List<TRole> tRoles = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -156,10 +170,12 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleDao.updateBatch(tRoles);
     }
 
+    @Override
     public int deleteById(Integer id) {
         return tRoleDao.deleteById(id);
     }
 
+    @Override
     public int deleteByEntity(TRoleReq tRoleReq) {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
@@ -169,7 +185,8 @@ public class TRoleServiceImpl implements TRoleServiceI {
         ObjectUtils.copyProperties(tRoleReq,tRole);
         return tRoleDao.deleteByEntity(tRole);
     }
-  
+
+    @Override
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -178,10 +195,12 @@ public class TRoleServiceImpl implements TRoleServiceI {
         return tRoleDao.deleteByIds(ids);
     }
 
+    @Override
     public int countAll() {
         return tRoleDao.countAll();
     }
-    
+
+    @Override
     public int countByEntity(TRoleReq tRoleReq) {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){

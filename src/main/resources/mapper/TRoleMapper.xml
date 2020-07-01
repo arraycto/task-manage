@@ -5,16 +5,20 @@
     <resultMap type="cn.org.dianjiu.task.entity.TRole" id="TRoleResultMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="creator" column="creator" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updator" column="updator" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="table_field">
-      id, role_name      
+      id, role_name, creator, create_time, updator, update_time
     </sql>
-       
+
     <!--通过Id查询单个对象-->
     <select id="getById" resultMap="TRoleResultMap" parameterType="java.lang.Integer">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_role
         where id = #{id,jdbcType=INTEGER}
     </select>
@@ -23,7 +27,7 @@
     <!--通过实体不为空的属性作为筛选条件查询对象列表-->
     <select id="listByEntity" resultMap="TRoleResultMap" parameterType="cn.org.dianjiu.task.entity.TRole">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_role
         <where>
             <if test="id != null">
@@ -31,6 +35,18 @@
             </if>
             <if test="roleName != null">
                 and role_name = #{roleName,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updator != null">
+                and updator = #{updator,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
             </if>
         </where>
     </select>
@@ -38,7 +54,7 @@
     <!--通过实体不为空的属性作为筛选条件查询单个对象-->
     <select id="getByEntity" resultMap="TRoleResultMap" parameterType="cn.org.dianjiu.task.entity.TRole">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_role
         <where>
             <if test="id != null">
@@ -47,13 +63,25 @@
             <if test="roleName != null">
                 and role_name = #{roleName,jdbcType=VARCHAR}
             </if>
+            <if test="creator != null">
+                and creator = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updator != null">
+                and updator = #{updator,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
         </where>
     </select>
 
     <!--通过Id列表作为筛选条件查询对象列表，列表长度不为0-->
     <select id="listByIds" resultMap="TRoleResultMap" parameterType="list">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_role
         where id in
         <foreach item="item" collection="list" separator="," open="(" close=")" index="index">
@@ -65,30 +93,56 @@
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="cn.org.dianjiu.task.entity.TRole">
         insert into t_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
-          <if test="id != null">
-             id,
-          </if>
-          <if test="roleName != null">
-             role_name,
-          </if>
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updator != null">
+                updator,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-          <if test="id != null">
-             #{id,jdbcType=INTEGER},
-          </if>
-          <if test="roleName != null">
-             #{roleName,jdbcType=VARCHAR},
-          </if>
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
 
     <!--批量新增所有列，列表长度不能为0，且列表id统一为null或者统一不为null-->
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true" parameterType="list">
         insert into t_role
-         (<if test="id != null">id,</if>role_name)
+        (<if test="id != null">id,</if>role_name, creator, create_time, updator, update_time)
         values
         <foreach item="item" collection="list" separator="," open="" close="" index="index">
-         (<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>#{item.roleName,jdbcType=VARCHAR})
+            (<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>#{item.roleName,jdbcType=VARCHAR},
+            #{item.creator,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updator,jdbcType=VARCHAR},
+            #{item.updateTime,jdbcType=TIMESTAMP})
         </foreach>
     </insert>
 
@@ -98,6 +152,18 @@
         <set>
             <if test="roleName != null and roleName != ''">
                 role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null and updator != ''">
+                updator = #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -110,6 +176,18 @@
             <if test="where.roleName == null and set.roleName != null and set.roleName != ''">
                 role_name = #{set.roleName,jdbcType=VARCHAR},
             </if>
+            <if test="where.creator == null and set.creator != null and set.creator != ''">
+                creator = #{set.creator,jdbcType=VARCHAR},
+            </if>
+            <if test="where.createTime == null and set.createTime != null">
+                create_time = #{set.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="where.updator == null and set.updator != null and set.updator != ''">
+                updator = #{set.updator,jdbcType=VARCHAR},
+            </if>
+            <if test="where.updateTime == null and set.updateTime != null">
+                update_time = #{set.updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         <where>
             <if test="where.id != null">
@@ -117,6 +195,18 @@
             </if>
             <if test="where.roleName != null">
                 and role_name = #{where.roleName,jdbcType=VARCHAR}
+            </if>
+            <if test="where.creator != null">
+                and creator = #{where.creator,jdbcType=VARCHAR}
+            </if>
+            <if test="where.createTime != null">
+                and create_time = #{where.createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="where.updator != null">
+                and updator = #{where.updator,jdbcType=VARCHAR}
+            </if>
+            <if test="where.updateTime != null">
+                and update_time = #{where.updateTime,jdbcType=TIMESTAMP}
             </if>
         </where>
     </update>
@@ -126,9 +216,29 @@
         update t_role
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="role_name = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.roleName}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.roleName}
+                </foreach>
+            </trim>
+            <trim prefix="creator = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.creator}
+                </foreach>
+            </trim>
+            <trim prefix="create_time = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.createTime}
+                </foreach>
+            </trim>
+            <trim prefix="updator = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.updator}
+                </foreach>
+            </trim>
+            <trim prefix="update_time = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.updateTime}
+                </foreach>
             </trim>
         </trim>
         where id in
@@ -136,7 +246,7 @@
             #{item.id,jdbcType=INTEGER}
         </foreach>
     </update>
-    
+
     <!--通过主键删除-->
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from t_role where id = #{id,jdbcType=INTEGER}
@@ -149,9 +259,21 @@
             <if test="roleName != null">
                 and role_name = #{roleName,jdbcType=VARCHAR}
             </if>
+            <if test="creator != null">
+                and creator = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updator != null">
+                and updator = #{updator,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
         </where>
     </delete>
-    
+
     <!--通过主键列表删除，列表长度不能为0-->
     <delete id="deleteByIds" parameterType="list">
         delete from t_role where id in
@@ -159,11 +281,11 @@
             #{item}
         </foreach>
     </delete>
-    
+
     <select id="countAll" resultType="int">
         select count(id) from t_role
     </select>
-    
+
     <select id="countByEntity" parameterType="cn.org.dianjiu.task.entity.TRole" resultType="int">
         select count(id) from t_role
         <where>
@@ -172,6 +294,18 @@
             </if>
             <if test="roleName != null">
                 and role_name = #{roleName,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updator != null">
+                and updator = #{updator,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
             </if>
         </where>
     </select>

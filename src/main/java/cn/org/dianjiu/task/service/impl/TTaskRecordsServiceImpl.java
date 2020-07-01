@@ -1,11 +1,17 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TTaskRecordsReq;
+import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TTaskRecordsDao;
 import cn.org.dianjiu.task.service.TTaskRecordsServiceI;
 import cn.org.dianjiu.task.entity.TTaskRecords;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
     @Autowired
     private TTaskRecordsDao tTaskRecordsDao;
 
+    @Override
     public TTaskRecordsResp getById(Long id) {
         TTaskRecordsResp tTaskRecordsResp = new TTaskRecordsResp();
         TTaskRecords tTaskRecords = tTaskRecordsDao.getById(id);
@@ -33,6 +40,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsResp;
     }
 
+    @Override
     public TTaskRecordsResp getByEntity(TTaskRecordsReq tTaskRecordsReq) {
       TTaskRecordsResp tTaskRecordsResp = new TTaskRecordsResp();
         TTaskRecords tTaskRecords = new TTaskRecords();
@@ -50,6 +58,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsResp;
     }
 
+    @Override
     public List<TTaskRecordsResp> listByEntity(TTaskRecordsReq tTaskRecordsReq) {
         List<TTaskRecordsResp> list = new ArrayList<>();
         TTaskRecords tTaskRecords = new TTaskRecords();
@@ -75,6 +84,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return list;
     }
 
+    @Override
     public List<TTaskRecordsResp> listByIds(List<Long> ids) {
       List<TTaskRecordsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
@@ -96,6 +106,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return list;
     }
 
+    @Override
     public int insert(TTaskRecordsReq tTaskRecordsReq) {
       TTaskRecords tTaskRecords = new TTaskRecords();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsReq)){
@@ -109,6 +120,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsDao.insert(tTaskRecords);
     }
 
+    @Override
     public int insertBatch(List<TTaskRecordsReq> list) {
       List<TTaskRecords> tTaskRecordss = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -127,6 +139,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsDao.insertBatch(tTaskRecordss);
     }
 
+    @Override
     public int update(TTaskRecordsReq tTaskRecordsReq) {
       TTaskRecords tTaskRecords = new TTaskRecords();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsReq)){
@@ -138,6 +151,7 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsDao.update(tTaskRecords);
     }
 
+    @Override
     public int updateBatch(List<TTaskRecordsReq> list) {
       List<TTaskRecords> tTaskRecordss = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -156,10 +170,12 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsDao.updateBatch(tTaskRecordss);
     }
 
+    @Override
     public int deleteById(Long id) {
         return tTaskRecordsDao.deleteById(id);
     }
 
+    @Override
     public int deleteByEntity(TTaskRecordsReq tTaskRecordsReq) {
       TTaskRecords tTaskRecords = new TTaskRecords();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsReq)){
@@ -169,7 +185,8 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         ObjectUtils.copyProperties(tTaskRecordsReq,tTaskRecords);
         return tTaskRecordsDao.deleteByEntity(tTaskRecords);
     }
-  
+
+    @Override
     public int deleteByIds(List<Long> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -178,10 +195,12 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         return tTaskRecordsDao.deleteByIds(ids);
     }
 
+    @Override
     public int countAll() {
         return tTaskRecordsDao.countAll();
     }
-    
+
+    @Override
     public int countByEntity(TTaskRecordsReq tTaskRecordsReq) {
       TTaskRecords tTaskRecords = new TTaskRecords();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsReq)){

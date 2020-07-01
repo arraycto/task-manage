@@ -1,11 +1,17 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TTaskErrorsReq;
+import cn.org.dianjiu.task.common.resp.TTaskErrorsResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TTaskErrorsDao;
 import cn.org.dianjiu.task.service.TTaskErrorsServiceI;
 import cn.org.dianjiu.task.entity.TTaskErrors;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     @Autowired
     private TTaskErrorsDao tTaskErrorsDao;
 
+    @Override
     public TTaskErrorsResp getById(Long id) {
         TTaskErrorsResp tTaskErrorsResp = new TTaskErrorsResp();
         TTaskErrors tTaskErrors = tTaskErrorsDao.getById(id);
@@ -33,6 +40,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsResp;
     }
 
+    @Override
     public TTaskErrorsResp getByEntity(TTaskErrorsReq tTaskErrorsReq) {
       TTaskErrorsResp tTaskErrorsResp = new TTaskErrorsResp();
         TTaskErrors tTaskErrors = new TTaskErrors();
@@ -50,6 +58,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsResp;
     }
 
+    @Override
     public List<TTaskErrorsResp> listByEntity(TTaskErrorsReq tTaskErrorsReq) {
         List<TTaskErrorsResp> list = new ArrayList<>();
         TTaskErrors tTaskErrors = new TTaskErrors();
@@ -75,6 +84,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return list;
     }
 
+    @Override
     public List<TTaskErrorsResp> listByIds(List<Long> ids) {
       List<TTaskErrorsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
@@ -96,6 +106,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return list;
     }
 
+    @Override
     public int insert(TTaskErrorsReq tTaskErrorsReq) {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
@@ -109,6 +120,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsDao.insert(tTaskErrors);
     }
 
+    @Override
     public int insertBatch(List<TTaskErrorsReq> list) {
       List<TTaskErrors> tTaskErrorss = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -127,6 +139,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsDao.insertBatch(tTaskErrorss);
     }
 
+    @Override
     public int update(TTaskErrorsReq tTaskErrorsReq) {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
@@ -138,6 +151,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsDao.update(tTaskErrors);
     }
 
+    @Override
     public int updateBatch(List<TTaskErrorsReq> list) {
       List<TTaskErrors> tTaskErrorss = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -156,10 +170,12 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsDao.updateBatch(tTaskErrorss);
     }
 
+    @Override
     public int deleteById(Long id) {
         return tTaskErrorsDao.deleteById(id);
     }
 
+    @Override
     public int deleteByEntity(TTaskErrorsReq tTaskErrorsReq) {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
@@ -169,7 +185,8 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         return tTaskErrorsDao.deleteByEntity(tTaskErrors);
     }
-  
+
+    @Override
     public int deleteByIds(List<Long> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -178,10 +195,12 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         return tTaskErrorsDao.deleteByIds(ids);
     }
 
+    @Override
     public int countAll() {
         return tTaskErrorsDao.countAll();
     }
-    
+
+    @Override
     public int countByEntity(TTaskErrorsReq tTaskErrorsReq) {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){

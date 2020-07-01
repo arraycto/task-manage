@@ -20,11 +20,11 @@
     <sql id="table_field">
       id, menu_name, menu_url, menu_code, parent_id, menu_type, order_num, creator, create_time, updator, update_time, deleted      
     </sql>
-       
+
     <!--通过Id查询单个对象-->
     <select id="getById" resultMap="TMenuResultMap" parameterType="java.lang.Integer">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_menu
         where id = #{id,jdbcType=INTEGER}
     </select>
@@ -33,7 +33,7 @@
     <!--通过实体不为空的属性作为筛选条件查询对象列表-->
     <select id="listByEntity" resultMap="TMenuResultMap" parameterType="cn.org.dianjiu.task.entity.TMenu">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_menu
         <where>
             <if test="id != null">
@@ -78,7 +78,7 @@
     <!--通过实体不为空的属性作为筛选条件查询单个对象-->
     <select id="getByEntity" resultMap="TMenuResultMap" parameterType="cn.org.dianjiu.task.entity.TMenu">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_menu
         <where>
             <if test="id != null">
@@ -123,7 +123,7 @@
     <!--通过Id列表作为筛选条件查询对象列表，列表长度不为0-->
     <select id="listByIds" resultMap="TMenuResultMap" parameterType="list">
         select
-          <include refid="table_field" />
+        <include refid="table_field"/>
         from t_menu
         where id in
         <foreach item="item" collection="list" separator="," open="(" close=")" index="index">
@@ -135,90 +135,95 @@
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="cn.org.dianjiu.task.entity.TMenu">
         insert into t_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
-          <if test="id != null">
-             id,
-          </if>
-          <if test="menuName != null">
-             menu_name,
-          </if>
-          <if test="menuUrl != null">
-             menu_url,
-          </if>
-          <if test="menuCode != null">
-             menu_code,
-          </if>
-          <if test="parentId != null">
-             parent_id,
-          </if>
-          <if test="menuType != null">
-             menu_type,
-          </if>
-          <if test="orderNum != null">
-             order_num,
-          </if>
-          <if test="creator != null">
-             creator,
-          </if>
-          <if test="createTime != null">
-             create_time,
-          </if>
-          <if test="updator != null">
-             updator,
-          </if>
-          <if test="updateTime != null">
-             update_time,
-          </if>
-          <if test="deleted != null">
-             deleted,
-          </if>
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuName != null">
+                menu_name,
+            </if>
+            <if test="menuUrl != null">
+                menu_url,
+            </if>
+            <if test="menuCode != null">
+                menu_code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="menuType != null">
+                menu_type,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updator != null">
+                updator,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-          <if test="id != null">
-             #{id,jdbcType=INTEGER},
-          </if>
-          <if test="menuName != null">
-             #{menuName,jdbcType=VARCHAR},
-          </if>
-          <if test="menuUrl != null">
-             #{menuUrl,jdbcType=VARCHAR},
-          </if>
-          <if test="menuCode != null">
-             #{menuCode,jdbcType=VARCHAR},
-          </if>
-          <if test="parentId != null">
-             #{parentId,jdbcType=INTEGER},
-          </if>
-          <if test="menuType != null">
-             #{menuType,jdbcType=INTEGER},
-          </if>
-          <if test="orderNum != null">
-             #{orderNum,jdbcType=INTEGER},
-          </if>
-          <if test="creator != null">
-             #{creator,jdbcType=VARCHAR},
-          </if>
-          <if test="createTime != null">
-             #{createTime,jdbcType=TIMESTAMP},
-          </if>
-          <if test="updator != null">
-             #{updator,jdbcType=VARCHAR},
-          </if>
-          <if test="updateTime != null">
-             #{updateTime,jdbcType=TIMESTAMP},
-          </if>
-          <if test="deleted != null">
-             #{deleted,jdbcType=INTEGER},
-          </if>
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuUrl != null">
+                #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="menuCode != null">
+                #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=INTEGER},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
 
     <!--批量新增所有列，列表长度不能为0，且列表id统一为null或者统一不为null-->
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true" parameterType="list">
         insert into t_menu
-         (<if test="id != null">id,</if>menu_name, menu_url, menu_code, parent_id, menu_type, order_num, creator, create_time, updator, update_time, deleted)
+        (<if test="id != null">id,</if>menu_name, menu_url, menu_code, parent_id, menu_type, order_num, creator,
+        create_time, updator, update_time, deleted)
         values
         <foreach item="item" collection="list" separator="," open="" close="" index="index">
-         (<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>#{item.menuName,jdbcType=VARCHAR}, #{item.menuUrl,jdbcType=VARCHAR}, #{item.menuCode,jdbcType=VARCHAR}, #{item.parentId,jdbcType=INTEGER}, #{item.menuType,jdbcType=INTEGER}, #{item.orderNum,jdbcType=INTEGER}, #{item.creator,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updator,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.deleted,jdbcType=INTEGER})
+            (<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>#{item.menuName,jdbcType=VARCHAR},
+            #{item.menuUrl,jdbcType=VARCHAR}, #{item.menuCode,jdbcType=VARCHAR}, #{item.parentId,jdbcType=INTEGER},
+            #{item.menuType,jdbcType=INTEGER}, #{item.orderNum,jdbcType=INTEGER}, #{item.creator,jdbcType=VARCHAR},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.updator,jdbcType=VARCHAR},
+            #{item.updateTime,jdbcType=TIMESTAMP}, #{item.deleted,jdbcType=INTEGER})
         </foreach>
     </insert>
 
@@ -346,59 +351,59 @@
         update t_menu
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="menu_name = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.menuName}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.menuName}
+                </foreach>
             </trim>
             <trim prefix="menu_url = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.menuUrl}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.menuUrl}
+                </foreach>
             </trim>
             <trim prefix="menu_code = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.menuCode}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.menuCode}
+                </foreach>
             </trim>
             <trim prefix="parent_id = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.parentId}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.parentId}
+                </foreach>
             </trim>
             <trim prefix="menu_type = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.menuType}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.menuType}
+                </foreach>
             </trim>
             <trim prefix="order_num = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.orderNum}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.orderNum}
+                </foreach>
             </trim>
             <trim prefix="creator = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.creator}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.creator}
+                </foreach>
             </trim>
             <trim prefix="create_time = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.createTime}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.createTime}
+                </foreach>
             </trim>
             <trim prefix="updator = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.updator}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.updator}
+                </foreach>
             </trim>
             <trim prefix="update_time = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.updateTime}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.updateTime}
+                </foreach>
             </trim>
             <trim prefix="deleted = case" suffix="end,">
-                 <foreach collection="list" item="item" index="index">
-                  when id = #{item.id} then #{item.deleted}
-                 </foreach>
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item.id} then #{item.deleted}
+                </foreach>
             </trim>
         </trim>
         where id in
@@ -406,7 +411,7 @@
             #{item.id,jdbcType=INTEGER}
         </foreach>
     </update>
-    
+
     <!--通过主键删除-->
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from t_menu where id = #{id,jdbcType=INTEGER}
@@ -451,7 +456,7 @@
             </if>
         </where>
     </delete>
-    
+
     <!--通过主键列表删除，列表长度不能为0-->
     <delete id="deleteByIds" parameterType="list">
         delete from t_menu where id in
@@ -459,11 +464,11 @@
             #{item}
         </foreach>
     </delete>
-    
+
     <select id="countAll" resultType="int">
         select count(id) from t_menu
     </select>
-    
+
     <select id="countByEntity" parameterType="cn.org.dianjiu.task.entity.TMenu" resultType="int">
         select count(id) from t_menu
         <where>

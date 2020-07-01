@@ -27,12 +27,20 @@ public class TTaskErrors {
     */
     private String errorvalue;
     /**
-    * 创建时间
-    */
+     * 创建人
+     */
+    private String creator;
+    /**
+     * 创建时间
+     */
     private Date createTime;
     /**
-    * 修改时间
-    */
+     * 修改人
+     */
+    private String updator;
+    /**
+     * 修改时间
+     */
     private Date updateTime;
 
 }

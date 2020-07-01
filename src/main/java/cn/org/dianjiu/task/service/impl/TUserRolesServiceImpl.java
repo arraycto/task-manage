@@ -1,11 +1,17 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TUserRolesReq;
+import cn.org.dianjiu.task.common.resp.TUserRolesResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.dao.TUserRolesDao;
 import cn.org.dianjiu.task.service.TUserRolesServiceI;
 import cn.org.dianjiu.task.entity.TUserRoles;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
     @Autowired
     private TUserRolesDao tUserRolesDao;
 
+    @Override
     public TUserRolesResp getById(Integer id) {
         TUserRolesResp tUserRolesResp = new TUserRolesResp();
         TUserRoles tUserRoles = tUserRolesDao.getById(id);
@@ -33,6 +40,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesResp;
     }
 
+    @Override
     public TUserRolesResp getByEntity(TUserRolesReq tUserRolesReq) {
       TUserRolesResp tUserRolesResp = new TUserRolesResp();
         TUserRoles tUserRoles = new TUserRoles();
@@ -50,6 +58,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesResp;
     }
 
+    @Override
     public List<TUserRolesResp> listByEntity(TUserRolesReq tUserRolesReq) {
         List<TUserRolesResp> list = new ArrayList<>();
         TUserRoles tUserRoles = new TUserRoles();
@@ -75,6 +84,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return list;
     }
 
+    @Override
     public List<TUserRolesResp> listByIds(List<Integer> ids) {
       List<TUserRolesResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
@@ -96,6 +106,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return list;
     }
 
+    @Override
     public int insert(TUserRolesReq tUserRolesReq) {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
@@ -109,6 +120,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesDao.insert(tUserRoles);
     }
 
+    @Override
     public int insertBatch(List<TUserRolesReq> list) {
       List<TUserRoles> tUserRoless = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -127,6 +139,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesDao.insertBatch(tUserRoless);
     }
 
+    @Override
     public int update(TUserRolesReq tUserRolesReq) {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
@@ -138,6 +151,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesDao.update(tUserRoles);
     }
 
+    @Override
     public int updateBatch(List<TUserRolesReq> list) {
       List<TUserRoles> tUserRoless = new ArrayList<>();
         if(null == list || list.isEmpty()){
@@ -156,10 +170,12 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesDao.updateBatch(tUserRoless);
     }
 
+    @Override
     public int deleteById(Integer id) {
         return tUserRolesDao.deleteById(id);
     }
 
+    @Override
     public int deleteByEntity(TUserRolesReq tUserRolesReq) {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
@@ -169,7 +185,8 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         return tUserRolesDao.deleteByEntity(tUserRoles);
     }
-  
+
+    @Override
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
@@ -178,10 +195,12 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         return tUserRolesDao.deleteByIds(ids);
     }
 
+    @Override
     public int countAll() {
         return tUserRolesDao.countAll();
     }
-    
+
+    @Override
     public int countByEntity(TUserRolesReq tUserRolesReq) {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
