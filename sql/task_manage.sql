@@ -46,9 +46,9 @@ CREATE TABLE `t_role` (
 -- Records of t_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role` VALUES (1, 'ROLE_ADMIN');
-INSERT INTO `t_role` VALUES (2, 'ROLE_DEV');
-INSERT INTO `t_role` VALUES (3, 'ROLE_USER');
+INSERT INTO `t_role` VALUES (1, 'ROLE_ADMIN', NULL, NULL, NULL, NULL);
+INSERT INTO `t_role` VALUES (2, 'ROLE_DEV', NULL, NULL, NULL, NULL);
+INSERT INTO `t_role` VALUES (3, 'ROLE_USER', NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -70,23 +70,23 @@ CREATE TABLE `t_role_menus` (
 -- Records of t_role_menus
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role_menus` VALUES (1, 1, 1);
-INSERT INTO `t_role_menus` VALUES (2, 1, 2);
-INSERT INTO `t_role_menus` VALUES (3, 1, 3);
-INSERT INTO `t_role_menus` VALUES (4, 1, 4);
-INSERT INTO `t_role_menus` VALUES (5, 1, 5);
-INSERT INTO `t_role_menus` VALUES (6, 1, 6);
-INSERT INTO `t_role_menus` VALUES (7, 2, 1);
-INSERT INTO `t_role_menus` VALUES (8, 2, 2);
-INSERT INTO `t_role_menus` VALUES (9, 2, 3);
-INSERT INTO `t_role_menus` VALUES (10, 2, 4);
-INSERT INTO `t_role_menus` VALUES (11, 2, 5);
-INSERT INTO `t_role_menus` VALUES (12, 2, 6);
-INSERT INTO `t_role_menus` VALUES (13, 3, 1);
-INSERT INTO `t_role_menus` VALUES (14, 3, 2);
-INSERT INTO `t_role_menus` VALUES (15, 3, 4);
-INSERT INTO `t_role_menus` VALUES (16, 3, 5);
-INSERT INTO `t_role_menus` VALUES (17, 3, 6);
+INSERT INTO `t_role_menus` VALUES (1, 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (2, 1, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (3, 1, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (4, 1, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (5, 1, 5, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (6, 1, 6, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (7, 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (8, 2, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (9, 2, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (10, 2, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (11, 2, 5, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (12, 2, 6, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (13, 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (14, 3, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (15, 3, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (16, 3, 5, NULL, NULL, NULL, NULL);
+INSERT INTO `t_role_menus` VALUES (17, 3, 6, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -108,8 +108,8 @@ CREATE TABLE `t_user` (
 -- Records of t_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user` VALUES (1, 'user', '$2a$10$D5E9lza7z8uea6fP/oNOJeuRq/a/y8RXQWslTDONsqxQTPlgW7Hr6');
-INSERT INTO `t_user` VALUES (2, 'admin', '$2a$10$on7jUGJN.4CyjPZzyroZce0ugjCQFzA6dRuOTcEFTBLLhe3oYe5Gu');
+INSERT INTO `t_user` VALUES (1, 'user', '$2a$10$D5E9lza7z8uea6fP/oNOJeuRq/a/y8RXQWslTDONsqxQTPlgW7Hr6', NULL, NULL, NULL, NULL);
+INSERT INTO `t_user` VALUES (2, 'admin', '$2a$10$on7jUGJN.4CyjPZzyroZce0ugjCQFzA6dRuOTcEFTBLLhe3oYe5Gu', NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -131,8 +131,8 @@ CREATE TABLE `t_user_roles` (
 -- Records of t_user_roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_roles` VALUES (1, 2, 1);
-INSERT INTO `t_user_roles` VALUES (2, 1, 3);
+INSERT INTO `t_user_roles` VALUES (1, 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `t_user_roles` VALUES (2, 1, 3, NULL, NULL, NULL, NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
