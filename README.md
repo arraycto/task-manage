@@ -1,18 +1,17 @@
 # Task Manage
 
-基于SpringBoto的定时任务管理系统 
+基于SpringBoto的定时轻量级定时任务管理系统 
 
 ## 技术选型
 - springboot 2.3.1
 - SpringSecurity 2.3.1
 - httpclient 4.5.12
-- commons-lang3 3.10
 - quartz 2.3.2
 - druid 1.1.22
 - fastjson 1.2.71
 
 ## 项目功能
-1. springboot集成security、quartz，使用druid连接池 
+1. springboot集成security、quartz、httpclient ，使用druid连接池 
 2. 同时支持swagger2、knife4j接口API调试
 3. 支持用户登录、登出、新增、权限管理的基础功能
 4. 支持http请求任务定时调度，当前支持get、postFrom(formdata表单)、postJson(JSON数据)三种请求类型，并记录返回内容
@@ -26,7 +25,7 @@
 
 - [x] 实现任务记录的新增、修改、删除、查询功能
 - [x] 实现任务记录的启用、暂停、立即启动功能
-- [ ] 实现任务记录根据任务名称和分组名称唯一查询
+- [x] 实现任务记录根据任务名称和分组名称唯一查询
 - [x] 实现执行历史的新增、修改、删除、查询功能
 - [x] 实现任务日志的新增、修改、删除、查询功能
 - [ ] 实现用户的新增、登录、登出、RBAC功能
@@ -34,7 +33,7 @@
 ## 部署方式
 1. 执行sql目录下的task_manage.sql文件，建立task_manage需要的数据库表  
 2. 修改application-local.yml中的数据库连接方式
-3. 访问 http://localhost:8080/idnex 可通过web界面进行定时任务的管理
+3. 访问 http://localhost:8080/idnex.html 可通过web界面进行定时任务的管理
 
 ## 在线演示
 
