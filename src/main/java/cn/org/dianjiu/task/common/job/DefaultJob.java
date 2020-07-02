@@ -9,6 +9,7 @@ import cn.org.dianjiu.task.common.util.*;
 import cn.org.dianjiu.task.service.impl.TTaskDetailsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskErrorsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskRecordsServiceImpl;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.quartz.*;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -71,15 +73,35 @@ public class DefaultJob implements  Job,Serializable {
                         throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
                     }
                 } catch (Exception ex) {
-                    logger.error("");
+                    logger.error(ExceptionUtils.getExceptionDetail(ex));
                     throw ex;
                 }
             }
             if(Constant.POST_FORM_DATA.equals(sendType)){
-                // TODO
+                HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
+                try {
+                    result = HttpClientUtils.postFormData(sendUrl, hashMap);
+                    logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
+                    if (ObjectUtils.isBlank(result)) {
+                        throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
+                    }
+                } catch (Exception ex) {
+                    logger.error(ExceptionUtils.getExceptionDetail(ex));
+                    throw ex;
+                }
             }
             if(Constant.GET.equals(sendType)){
-                // TODO
+                HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
+                try {
+                    result = HttpClientUtils.getMap(sendUrl, hashMap);
+                    logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
+                    if (ObjectUtils.isBlank(result)) {
+                        throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
+                    }
+                } catch (Exception ex) {
+                    logger.error(ExceptionUtils.getExceptionDetail(ex));
+                    throw ex;
+                }
             }
         } catch (Exception ex) {
             logger.error("定时任务执行异常:id={},taskNo={},taskName={},groupNo={},groupName={},taskDesc={},sendType={},sendUrl={},sendParam={}",id, taskNo, taskName, groupNo, groupName, taskDesc, sendType, sendUrl, sendParam);

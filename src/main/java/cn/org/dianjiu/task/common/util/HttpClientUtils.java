@@ -55,37 +55,6 @@ public class HttpClientUtils {
      * get请求
      *
      * @param url
-     * @return
-     */
-    public static String doGet(String url) {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        CloseableHttpResponse response = null;
-        String result = null;
-        // 超时时间设置
-        RequestConfig requestConfig = RequestConfig.custom()
-                .setSocketTimeout(HTTP_READ_TIMEOUT_3MIN)
-                .setConnectTimeout(HTTP_CONNECT_TIMEOUT_30S).build();
-        try {
-            URIBuilder builder = new URIBuilder(url);
-            // 设置参数
-            HttpGet httpGet = new HttpGet(builder.build());
-            httpGet.setConfig(requestConfig);
-            // 发送请求
-            response = httpclient.execute(httpGet);
-            result = EntityUtils.toString(response.getEntity(), Charsets.UTF_8);
-            if (response.getStatusLine().getStatusCode() != HTTP_SUCCESS_STATUS_CODE) {
-                logger.error("Error in getMap. Request URL is [{}], Result:[{}]", url, result);
-            }
-        } catch (Exception e) {
-            log.error("httpclient get request url=" + url + ",exception=" + e);
-        }
-        return result;
-    }
-
-    /**
-     * get请求
-     *
-     * @param url
      * @param formDataParam
      * @return
      */
