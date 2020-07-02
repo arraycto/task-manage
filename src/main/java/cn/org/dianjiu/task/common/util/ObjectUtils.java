@@ -1,7 +1,5 @@
 package cn.org.dianjiu.task.common.util;
 
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -9,8 +7,6 @@ import org.springframework.beans.BeansException;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Dianjiu on 2020/2/15.
@@ -32,7 +28,7 @@ public class ObjectUtils {
         try {
             for (Field f : object.getClass().getDeclaredFields()) {
                 f.setAccessible(true);
-                if (f.get(object) != null && StringUtils.isNotBlank(f.get(object).toString())) {
+                if (f.get(object) != null && ObjectUtils.isNotBlank(f.get(object).toString())) {
                     return false;
                 }
             }

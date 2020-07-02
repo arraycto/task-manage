@@ -1,7 +1,6 @@
 package cn.org.dianjiu.task.common.util;
 
 import org.apache.commons.codec.Charsets;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -159,7 +158,7 @@ public class HttpClientUtils {
         HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
         // 设置请求头和请求参数
-        if (StringUtils.isNotEmpty(jsonParam)) {
+        if (ObjectUtils.isNotEmpty(jsonParam)) {
             StringEntity entity = new StringEntity(jsonParam, "utf-8");
             entity.setContentEncoding("UTF-8");
             entity.setContentType("application/json");
