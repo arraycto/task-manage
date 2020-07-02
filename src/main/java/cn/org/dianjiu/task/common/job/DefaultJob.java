@@ -1,12 +1,12 @@
 package cn.org.dianjiu.task.common.job;
 
+import cn.org.dianjiu.task.common.constants.Constant;
 import cn.org.dianjiu.task.common.exception.BusinessException;
+import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.req.TTaskErrorsReq;
 import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
-import cn.org.dianjiu.task.common.util.ExceptionUtils;
-import cn.org.dianjiu.task.common.util.HttpClientUtils;
-import cn.org.dianjiu.task.common.util.ObjectUtils;
-import cn.org.dianjiu.task.common.util.SpringUtils;
+import cn.org.dianjiu.task.common.util.*;
+import cn.org.dianjiu.task.service.impl.TTaskDetailsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskErrorsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskRecordsServiceImpl;
 import org.quartz.*;
@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -45,7 +46,9 @@ public class DefaultJob implements  Job,Serializable {
         String sendType = jobDataMap.getString("sendType");
         String sendUrl = jobDataMap.getString("sendUrl");
         String sendParam = jobDataMap.getString("sendParam");
+        String cornRule = jobDataMap.getString("cornRule");
         logger.info("定时任务被执行:id={},taskNo={},taskName={},groupNo={},groupName={},taskDesc={},sendType={},sendUrl={},sendParam={}",id, taskNo, taskName, groupNo, groupName, taskDesc, sendType, sendUrl, sendParam);
+        TTaskDetailsServiceImpl taskDetailsService = SpringUtils.getBean(TTaskDetailsServiceImpl.class);
         TTaskRecordsServiceImpl taskRecordsService = SpringUtils.getBean(TTaskRecordsServiceImpl.class);
         TTaskErrorsServiceImpl taskErrorsService = SpringUtils.getBean(TTaskErrorsServiceImpl.class);
         TTaskRecordsResp records = null;
@@ -58,7 +61,7 @@ public class DefaultJob implements  Job,Serializable {
                 throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
             }
 
-            if ("postJson".equals(sendType)) {
+            if (Constant.POST_JSON.equals(sendType)) {
                 try {
                     result = HttpClientUtils.postJson(sendUrl, sendParam);
                     logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
@@ -70,10 +73,10 @@ public class DefaultJob implements  Job,Serializable {
                     throw ex;
                 }
             }
-            if("postFrom".equals(sendType)){
+            if(Constant.POST_FORM_DATA.equals(sendType)){
                 // TODO
             }
-            if("get".equals(sendType)){
+            if(Constant.GET.equals(sendType)){
                 // TODO
             }
         } catch (Exception ex) {
@@ -85,7 +88,12 @@ public class DefaultJob implements  Job,Serializable {
             tTaskErrorsReq.setErrorvalue(ExceptionUtils.getExceptionDetail(ex));
             taskErrorsService.insert(tTaskErrorsReq);
         }
-        // TODO 更新任务详情表的下次执行时间和执行记录表的执行状态和返回值
+        // 更新任务详情表的下次执行时间和执行记录表的执行状态和返回值
+        //获取下次执行时间更新到任务表中
+        TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
+        Date nextFireDate = JobUtils.getNextFireDate(cornRule);
+        tTaskDetailsReq.setNextExecuteTime(nextFireDate);
+        taskDetailsService.update(tTaskDetailsReq);
         //更新执行记录的状态和返回值
         taskRecordsService.updateRecordById(atomicInteger.get(), records.getId(),result);
     }
