@@ -10,6 +10,10 @@ public class BusinessException extends RuntimeException {
     private String code;
     private String message;
 
+    public BusinessException() {
+        super();
+    }
+
     public BusinessException(String code, String message) {
         super(message);
         this.code = code;

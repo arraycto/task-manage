@@ -49,7 +49,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         TTaskDetails tTaskDetails = tTaskDetailsDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetails)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tTaskDetails,tTaskDetailsResp);
         return tTaskDetailsResp;
@@ -61,13 +61,13 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         TTaskDetails tTaskDetails1 = tTaskDetailsDao.getByEntity(tTaskDetails);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetails1)){
             log.error("根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tTaskDetails1,tTaskDetailsResp);
         return tTaskDetailsResp;
@@ -79,19 +79,19 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         List<TTaskDetails> tTaskDetailss = tTaskDetailsDao.listByEntity(tTaskDetails);
         if(null == tTaskDetailss || tTaskDetailss.isEmpty()){
             log.error("根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
         }
         for (TTaskDetails tTaskDetails1 : tTaskDetailss ) {
             TTaskDetailsResp tTaskDetailsResp = new TTaskDetailsResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetails1)){
                 log.error("根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tTaskDetailsReq【"+tTaskDetailsReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tTaskDetails1,tTaskDetailsResp);
             list.add(tTaskDetailsResp);
@@ -104,7 +104,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       List<TTaskDetailsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TTaskDetails> tTaskDetailss  = tTaskDetailsDao.listByIds(ids);
         if(null != tTaskDetailss && !tTaskDetailss.isEmpty()){
@@ -112,7 +112,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
                 TTaskDetailsResp tTaskDetailsResp = new TTaskDetailsResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetails1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tTaskDetails1,tTaskDetailsResp);
                 list.add(tTaskDetailsResp);
@@ -126,7 +126,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         //TODO 获取下次执行时间
@@ -141,13 +141,13 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       List<TTaskDetails> tTaskDetailss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TTaskDetailsReq tTaskDetailsReq : list) {
             TTaskDetails tTaskDetails = new TTaskDetails();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
             //TODO 获取下次执行时间
@@ -161,7 +161,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         //TODO 更新下次执行时间
@@ -174,13 +174,13 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       List<TTaskDetails> tTaskDetailss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TTaskDetailsReq tTaskDetailsReq : list) {
             TTaskDetails tTaskDetails = new TTaskDetails();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
             //TODO 更新下次执行时间
@@ -199,7 +199,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         return tTaskDetailsDao.deleteByEntity(tTaskDetails);
@@ -209,7 +209,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tTaskDetailsDao.deleteByIds(ids);
     }
@@ -224,7 +224,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
       TTaskDetails tTaskDetails = new TTaskDetails();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskDetailsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
         return tTaskDetailsDao.countByEntity(tTaskDetails);
@@ -235,7 +235,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         //根据taskNo查询定时任务
         TTaskDetailsResp taskDetailsResp = getById(id);
         if (ObjectUtils.checkObjAllFieldsIsNull(taskDetailsResp)) {
-            new BusinessException("400","根据taskID没有查到信息！");
+            throw new BusinessException("400","根据taskID没有查到信息！");
         }
         TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
         tTaskDetailsReq.setId(id);
@@ -246,7 +246,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             try {
                 scheduler.deleteJob(new JobKey(taskDetailsResp.getTaskNo()));
             } catch (SchedulerException e) {
-                new BusinessException("400", ExceptionUtils.getExceptionDetail(e));
+                throw new BusinessException("400", ExceptionUtils.getExceptionDetail(e));
             }
             return update(tTaskDetailsReq);
         }
@@ -281,7 +281,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             records = taskRecordsService.addTaskRecords(id);
             if (ObjectUtils.checkObjAllFieldsIsNull(records)) {
                 log.info("taskNo={}保存执行记录失败", taskNo);
-                new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
+                throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
             }
 
             if ("postJson".equals(sendType)) {
@@ -334,7 +334,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         List<TTaskDetailsResp> tTaskDetailsResps = listByEntity(tTaskDetailsReq);
         if (ObjectUtils.isEmpty(tTaskDetailsResps)) {
             log.info("没有需要初始化加载的定时任务");
-            new BusinessException("400","没有需要初始化加载的定时任务");
+            throw new BusinessException("400","没有需要初始化加载的定时任务");
         }
         Scheduler scheduler = schedulerBean.getScheduler();
         for (TTaskDetailsResp tTaskDetailsResp : tTaskDetailsResps) {
@@ -371,7 +371,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         try {
             scheduler.scheduleJob(jobDetail, trigger);
         } catch (SchedulerException e) {
-            new BusinessException("400","TTaskDetailsServiceImpl schedule() Exception "+ExceptionUtils.getExceptionDetail(e));
+            throw new BusinessException("400","TTaskDetailsServiceImpl schedule() Exception "+ExceptionUtils.getExceptionDetail(e));
         }
         log.info("taskNo={},taskName={},scheduleRule={} load to quartz success!", tTaskDetails.getTaskNo(), tTaskDetails.getTaskName(), tTaskDetails.getCornRule());
     }

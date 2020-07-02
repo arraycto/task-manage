@@ -34,7 +34,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
         TMenu tMenu = tMenuDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenu)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tMenu,tMenuResp);
         return tMenuResp;
@@ -46,13 +46,13 @@ public class TMenuServiceImpl implements TMenuServiceI {
         TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         TMenu tMenu1 = tMenuDao.getByEntity(tMenu);
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenu1)){
             log.error("根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tMenu1,tMenuResp);
         return tMenuResp;
@@ -64,19 +64,19 @@ public class TMenuServiceImpl implements TMenuServiceI {
         TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         List<TMenu> tMenus = tMenuDao.listByEntity(tMenu);
         if(null == tMenus || tMenus.isEmpty()){
             log.error("根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
         }
         for (TMenu tMenu1 : tMenus ) {
             TMenuResp tMenuResp = new TMenuResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tMenu1)){
                 log.error("根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tMenuReq【"+tMenuReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tMenu1,tMenuResp);
             list.add(tMenuResp);
@@ -89,7 +89,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
       List<TMenuResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TMenu> tMenus  = tMenuDao.listByIds(ids);
         if(null != tMenus && !tMenus.isEmpty()){
@@ -97,7 +97,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
                 TMenuResp tMenuResp = new TMenuResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tMenu1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tMenu1,tMenuResp);
                 list.add(tMenuResp);
@@ -111,7 +111,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
       TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TMenuServiceImpl implements TMenuServiceI {
       List<TMenu> tMenus = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TMenuReq tMenuReq : list) {
             TMenu tMenu = new TMenu();
             if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tMenuReq,tMenu);
             tMenus.add(tMenu);
@@ -144,7 +144,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
       TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         tMenu.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TMenuServiceImpl implements TMenuServiceI {
       List<TMenu> tMenus = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TMenuReq tMenuReq : list) {
             TMenu tMenu = new TMenu();
             if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tMenuReq,tMenu);
             tMenus.add(tMenu);
@@ -180,7 +180,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
       TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         return tMenuDao.deleteByEntity(tMenu);
@@ -190,7 +190,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tMenuDao.deleteByIds(ids);
     }
@@ -205,7 +205,7 @@ public class TMenuServiceImpl implements TMenuServiceI {
       TMenu tMenu = new TMenu();
         if(ObjectUtils.checkObjAllFieldsIsNull(tMenuReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tMenuReq,tMenu);
         return tMenuDao.countByEntity(tMenu);

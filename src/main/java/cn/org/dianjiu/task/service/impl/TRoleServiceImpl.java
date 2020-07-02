@@ -34,7 +34,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
         TRole tRole = tRoleDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tRole)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tRole,tRoleResp);
         return tRoleResp;
@@ -46,13 +46,13 @@ public class TRoleServiceImpl implements TRoleServiceI {
         TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         TRole tRole1 = tRoleDao.getByEntity(tRole);
         if(ObjectUtils.checkObjAllFieldsIsNull(tRole1)){
             log.error("根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tRole1,tRoleResp);
         return tRoleResp;
@@ -64,19 +64,19 @@ public class TRoleServiceImpl implements TRoleServiceI {
         TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         List<TRole> tRoles = tRoleDao.listByEntity(tRole);
         if(null == tRoles || tRoles.isEmpty()){
             log.error("根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
         }
         for (TRole tRole1 : tRoles ) {
             TRoleResp tRoleResp = new TRoleResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRole1)){
                 log.error("根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tRoleReq【"+tRoleReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tRole1,tRoleResp);
             list.add(tRoleResp);
@@ -89,7 +89,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
       List<TRoleResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TRole> tRoles  = tRoleDao.listByIds(ids);
         if(null != tRoles && !tRoles.isEmpty()){
@@ -97,7 +97,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
                 TRoleResp tRoleResp = new TRoleResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tRole1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tRole1,tRoleResp);
                 list.add(tRoleResp);
@@ -111,7 +111,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TRoleServiceImpl implements TRoleServiceI {
       List<TRole> tRoles = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TRoleReq tRoleReq : list) {
             TRole tRole = new TRole();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tRoleReq,tRole);
             tRoles.add(tRole);
@@ -144,7 +144,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         tRole.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TRoleServiceImpl implements TRoleServiceI {
       List<TRole> tRoles = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TRoleReq tRoleReq : list) {
             TRole tRole = new TRole();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tRoleReq,tRole);
             tRoles.add(tRole);
@@ -180,7 +180,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         return tRoleDao.deleteByEntity(tRole);
@@ -190,7 +190,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tRoleDao.deleteByIds(ids);
     }
@@ -205,7 +205,7 @@ public class TRoleServiceImpl implements TRoleServiceI {
       TRole tRole = new TRole();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleReq,tRole);
         return tRoleDao.countByEntity(tRole);

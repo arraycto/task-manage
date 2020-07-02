@@ -34,7 +34,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
         TRoleMenus tRoleMenus = tRoleMenusDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenus)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tRoleMenus,tRoleMenusResp);
         return tRoleMenusResp;
@@ -46,13 +46,13 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
         TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         TRoleMenus tRoleMenus1 = tRoleMenusDao.getByEntity(tRoleMenus);
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenus1)){
             log.error("根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tRoleMenus1,tRoleMenusResp);
         return tRoleMenusResp;
@@ -64,19 +64,19 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
         TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         List<TRoleMenus> tRoleMenuss = tRoleMenusDao.listByEntity(tRoleMenus);
         if(null == tRoleMenuss || tRoleMenuss.isEmpty()){
             log.error("根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
         }
         for (TRoleMenus tRoleMenus1 : tRoleMenuss ) {
             TRoleMenusResp tRoleMenusResp = new TRoleMenusResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenus1)){
                 log.error("根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tRoleMenusReq【"+tRoleMenusReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tRoleMenus1,tRoleMenusResp);
             list.add(tRoleMenusResp);
@@ -89,7 +89,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       List<TRoleMenusResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TRoleMenus> tRoleMenuss  = tRoleMenusDao.listByIds(ids);
         if(null != tRoleMenuss && !tRoleMenuss.isEmpty()){
@@ -97,7 +97,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
                 TRoleMenusResp tRoleMenusResp = new TRoleMenusResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenus1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tRoleMenus1,tRoleMenusResp);
                 list.add(tRoleMenusResp);
@@ -111,7 +111,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       List<TRoleMenus> tRoleMenuss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TRoleMenusReq tRoleMenusReq : list) {
             TRoleMenus tRoleMenus = new TRoleMenus();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
             tRoleMenuss.add(tRoleMenus);
@@ -144,7 +144,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         tRoleMenus.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       List<TRoleMenus> tRoleMenuss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TRoleMenusReq tRoleMenusReq : list) {
             TRoleMenus tRoleMenus = new TRoleMenus();
             if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
             tRoleMenuss.add(tRoleMenus);
@@ -180,7 +180,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         return tRoleMenusDao.deleteByEntity(tRoleMenus);
@@ -189,7 +189,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tRoleMenusDao.deleteByIds(ids);
     }
@@ -204,7 +204,7 @@ public class TRoleMenusServiceImpl implements TRoleMenusServiceI {
       TRoleMenus tRoleMenus = new TRoleMenus();
         if(ObjectUtils.checkObjAllFieldsIsNull(tRoleMenusReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tRoleMenusReq,tRoleMenus);
         return tRoleMenusDao.countByEntity(tRoleMenus);

@@ -55,7 +55,7 @@ public class DefaultJob implements  Job,Serializable {
             records = taskRecordsService.addTaskRecords(id);
             if (ObjectUtils.checkObjAllFieldsIsNull(records)) {
                 logger.info("taskNo={}保存执行记录失败", taskNo);
-                new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
+                throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
             }
 
             if ("postJson".equals(sendType)) {

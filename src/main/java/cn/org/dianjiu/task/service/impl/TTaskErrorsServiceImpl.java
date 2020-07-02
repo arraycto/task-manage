@@ -34,7 +34,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         TTaskErrors tTaskErrors = tTaskErrorsDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrors)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tTaskErrors,tTaskErrorsResp);
         return tTaskErrorsResp;
@@ -46,13 +46,13 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         TTaskErrors tTaskErrors1 = tTaskErrorsDao.getByEntity(tTaskErrors);
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrors1)){
             log.error("根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tTaskErrors1,tTaskErrorsResp);
         return tTaskErrorsResp;
@@ -64,19 +64,19 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
         TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         List<TTaskErrors> tTaskErrorss = tTaskErrorsDao.listByEntity(tTaskErrors);
         if(null == tTaskErrorss || tTaskErrorss.isEmpty()){
             log.error("根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
         }
         for (TTaskErrors tTaskErrors1 : tTaskErrorss ) {
             TTaskErrorsResp tTaskErrorsResp = new TTaskErrorsResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrors1)){
                 log.error("根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tTaskErrorsReq【"+tTaskErrorsReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tTaskErrors1,tTaskErrorsResp);
             list.add(tTaskErrorsResp);
@@ -89,7 +89,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       List<TTaskErrorsResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TTaskErrors> tTaskErrorss  = tTaskErrorsDao.listByIds(ids);
         if(null != tTaskErrorss && !tTaskErrorss.isEmpty()){
@@ -97,7 +97,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
                 TTaskErrorsResp tTaskErrorsResp = new TTaskErrorsResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrors1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tTaskErrors1,tTaskErrorsResp);
                 list.add(tTaskErrorsResp);
@@ -111,7 +111,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       List<TTaskErrors> tTaskErrorss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TTaskErrorsReq tTaskErrorsReq : list) {
             TTaskErrors tTaskErrors = new TTaskErrors();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
             tTaskErrorss.add(tTaskErrors);
@@ -144,7 +144,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         tTaskErrors.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       List<TTaskErrors> tTaskErrorss = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TTaskErrorsReq tTaskErrorsReq : list) {
             TTaskErrors tTaskErrors = new TTaskErrors();
             if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
             tTaskErrorss.add(tTaskErrors);
@@ -180,7 +180,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         return tTaskErrorsDao.deleteByEntity(tTaskErrors);
@@ -190,7 +190,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tTaskErrorsDao.deleteByIds(ids);
     }
@@ -205,7 +205,7 @@ public class TTaskErrorsServiceImpl implements TTaskErrorsServiceI {
       TTaskErrors tTaskErrors = new TTaskErrors();
         if(ObjectUtils.checkObjAllFieldsIsNull(tTaskErrorsReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskErrorsReq,tTaskErrors);
         return tTaskErrorsDao.countByEntity(tTaskErrors);

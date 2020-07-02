@@ -34,7 +34,7 @@ public class TUserServiceImpl implements TUserServiceI {
         TUser tUser = tUserDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tUser)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tUser,tUserResp);
         return tUserResp;
@@ -46,13 +46,13 @@ public class TUserServiceImpl implements TUserServiceI {
         TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         TUser tUser1 = tUserDao.getByEntity(tUser);
         if(ObjectUtils.checkObjAllFieldsIsNull(tUser1)){
             log.error("根据tUserReq【"+tUserReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tUser1,tUserResp);
         return tUserResp;
@@ -64,19 +64,19 @@ public class TUserServiceImpl implements TUserServiceI {
         TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         List<TUser> tUsers = tUserDao.listByEntity(tUser);
         if(null == tUsers || tUsers.isEmpty()){
             log.error("根据tUserReq【"+tUserReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
         }
         for (TUser tUser1 : tUsers ) {
             TUserResp tUserResp = new TUserResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUser1)){
                 log.error("根据tUserReq【"+tUserReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tUserReq【"+tUserReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tUser1,tUserResp);
             list.add(tUserResp);
@@ -89,7 +89,7 @@ public class TUserServiceImpl implements TUserServiceI {
       List<TUserResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TUser> tUsers  = tUserDao.listByIds(ids);
         if(null != tUsers && !tUsers.isEmpty()){
@@ -97,7 +97,7 @@ public class TUserServiceImpl implements TUserServiceI {
                 TUserResp tUserResp = new TUserResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tUser1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tUser1,tUserResp);
                 list.add(tUserResp);
@@ -111,7 +111,7 @@ public class TUserServiceImpl implements TUserServiceI {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TUserServiceImpl implements TUserServiceI {
       List<TUser> tUsers = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TUserReq tUserReq : list) {
             TUser tUser = new TUser();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tUserReq,tUser);
             tUsers.add(tUser);
@@ -144,7 +144,7 @@ public class TUserServiceImpl implements TUserServiceI {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         tUser.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TUserServiceImpl implements TUserServiceI {
       List<TUser> tUsers = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TUserReq tUserReq : list) {
             TUser tUser = new TUser();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tUserReq,tUser);
             tUsers.add(tUser);
@@ -180,7 +180,7 @@ public class TUserServiceImpl implements TUserServiceI {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         return tUserDao.deleteByEntity(tUser);
@@ -190,7 +190,7 @@ public class TUserServiceImpl implements TUserServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tUserDao.deleteByIds(ids);
     }
@@ -205,7 +205,7 @@ public class TUserServiceImpl implements TUserServiceI {
       TUser tUser = new TUser();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserReq,tUser);
         return tUserDao.countByEntity(tUser);

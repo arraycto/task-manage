@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler( BusinessException.class)
-    public RespVO BusinessExceptionHandler(BusinessException e) {
+    @ExceptionHandler(value = BusinessException.class)
+    public RespVO BusinessExceptionHandler(HttpServletRequest request, BusinessException e) {
+        log.error("Exception happened: ", e);
         RespVO<Object> respVO = new RespVO<>();
         respVO.setCode(e.getCode());
         respVO.setMsg(e.getMessage());
-        log.error(String.valueOf(respVO));
         return respVO;
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler( Exception.class)
-    public RespVO ExceptionHandler(Exception e) {
+    @ExceptionHandler(Exception.class)
+    public RespVO ExceptionHandler(HttpServletRequest request,Exception e) {
         log.error("Exception happened: ", e);
         RespVO<Object> respVO = new RespVO<>();
         respVO.setCode("500");

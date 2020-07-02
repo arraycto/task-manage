@@ -34,7 +34,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         TUserRoles tUserRoles = tUserRolesDao.getById(id);
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRoles)){
             log.error("根据id【"+id+"】没有查到相关记录！");
-            new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
+            throw new BusinessException("400","根据id【"+id+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tUserRoles,tUserRolesResp);
         return tUserRolesResp;
@@ -46,13 +46,13 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         TUserRoles tUserRoles1 = tUserRolesDao.getByEntity(tUserRoles);
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRoles1)){
             log.error("根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
         }
         ObjectUtils.copyProperties(tUserRoles1,tUserRolesResp);
         return tUserRolesResp;
@@ -64,19 +64,19 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
         TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         List<TUserRoles> tUserRoless = tUserRolesDao.listByEntity(tUserRoles);
         if(null == tUserRoless || tUserRoless.isEmpty()){
             log.error("根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
-            new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
+            throw new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
         }
         for (TUserRoles tUserRoles1 : tUserRoless ) {
             TUserRolesResp tUserRolesResp = new TUserRolesResp();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUserRoles1)){
                 log.error("根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
-                new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
+                throw new BusinessException("400","根据tUserRolesReq【"+tUserRolesReq+"】没有查到相关记录！");
             }
             ObjectUtils.copyProperties(tUserRoles1,tUserRolesResp);
             list.add(tUserRolesResp);
@@ -89,7 +89,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       List<TUserRolesResp> list = new ArrayList<>();
         if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         List<TUserRoles> tUserRoless  = tUserRolesDao.listByIds(ids);
         if(null != tUserRoless && !tUserRoless.isEmpty()){
@@ -97,7 +97,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
                 TUserRolesResp tUserRolesResp = new TUserRolesResp();
                 if(ObjectUtils.checkObjAllFieldsIsNull(tUserRoles1)){
                     log.error("根据ids【"+ids.toString()+"】没有查到相关记录！");
-                    new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
+                    throw new BusinessException("400","根据ids【"+ids.toString()+"】没有查到相关记录！");
                 }
                 ObjectUtils.copyProperties(tUserRoles1,tUserRolesResp);
                 list.add(tUserRolesResp);
@@ -111,7 +111,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         Date date = new Date();
@@ -125,13 +125,13 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       List<TUserRoles> tUserRoless = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量插入的集合为空！");
-            new BusinessException("400","执行批量插入的集合为空！");
+            throw new BusinessException("400","执行批量插入的集合为空！");
         }
         for (TUserRolesReq tUserRolesReq : list) {
             TUserRoles tUserRoles = new TUserRoles();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
                 log.error("执行批量插入的集合为空！");
-                new BusinessException("400","执行批量插入的集合为空！");
+                throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
             tUserRoless.add(tUserRoles);
@@ -144,7 +144,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         tUserRoles.setUpdateTime(new Date());
@@ -156,13 +156,13 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       List<TUserRoles> tUserRoless = new ArrayList<>();
         if(null == list || list.isEmpty()){
             log.error("执行批量更新的集合为空！");
-            new BusinessException("400","执行批量更新的集合为空！");
+            throw new BusinessException("400","执行批量更新的集合为空！");
         }
         for (TUserRolesReq tUserRolesReq : list) {
             TUserRoles tUserRoles = new TUserRoles();
             if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
                 log.error("执行批量更新的集合为空！");
-                new BusinessException("400","执行批量更新的集合为空！");
+                throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
             tUserRoless.add(tUserRoles);
@@ -180,7 +180,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         return tUserRolesDao.deleteByEntity(tUserRoles);
@@ -190,7 +190,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
     public int deleteByIds(List<Integer> ids) {
       if(null == ids || ids.isEmpty()){
             log.error("id集合不能为空！");
-            new BusinessException("400","id集合不能为空！");
+            throw new BusinessException("400","id集合不能为空！");
         }
         return tUserRolesDao.deleteByIds(ids);
     }
@@ -205,7 +205,7 @@ public class TUserRolesServiceImpl implements TUserRolesServiceI {
       TUserRoles tUserRoles = new TUserRoles();
         if(ObjectUtils.checkObjAllFieldsIsNull(tUserRolesReq)){
             log.error("入参对象不能为空！");
-            new BusinessException("400","入参对象不能为空！");
+            throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tUserRolesReq,tUserRoles);
         return tUserRolesDao.countByEntity(tUserRoles);
