@@ -55,7 +55,9 @@ public class DefaultJob implements  Job,Serializable {
         TTaskRecordsServiceImpl taskRecordsService = SpringUtils.getBean(TTaskRecordsServiceImpl.class);
         TTaskErrorsServiceImpl taskErrorsService = SpringUtils.getBean(TTaskErrorsServiceImpl.class);
         TTaskRecordsResp records = null;
-        String result = "";
+        String result = "";if (ObjectUtils.isBlank(sendParam)) {
+            sendParam = "";
+        }
         try {
             //保存定时任务的执行记录
             records = taskRecordsService.addTaskRecords(id);

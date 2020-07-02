@@ -1,5 +1,6 @@
 package cn.org.dianjiu.task.common.util;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.Charsets;
 import org.apache.http.NameValuePair;
@@ -18,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -51,6 +53,12 @@ public class HttpClientUtils {
     private HttpClientUtils() {
     }
 
+    public static void main(String[] args) {
+        String str="";
+        HashMap hashMap = JSON.parseObject(str, HashMap.class);
+        String map = getMap("http://localhost:8080/tTaskDetails/get/2", hashMap);
+        System.out.println(map);
+    }
     /**
      * get请求
      *

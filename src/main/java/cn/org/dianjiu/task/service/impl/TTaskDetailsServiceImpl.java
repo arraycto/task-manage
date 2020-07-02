@@ -383,8 +383,14 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         Scheduler scheduler = schedulerBean.getScheduler();
         for (TTaskDetailsResp tTaskDetailsResp : tTaskDetailsResps) {
             TTaskDetails tTaskDetails = new TTaskDetails();
-            ObjectUtils.copyProperties(tTaskDetailsResp,tTaskDetails);
+            //获取下次执行时间更新到任务表中
+            Date nextFireDate = JobUtils.getNextFireDate(tTaskDetailsResp.getCornRule());
+            tTaskDetailsReq.setId(tTaskDetailsResp.getId());
+            tTaskDetailsReq.setCornRule(tTaskDetailsResp.getCornRule());
+            tTaskDetailsReq.setNextExecuteTime(nextFireDate);
+            update(tTaskDetailsReq);
             //添加到任务列表
+            ObjectUtils.copyProperties(tTaskDetailsResp,tTaskDetails);
             schedule(tTaskDetails, scheduler);
         }
     }
