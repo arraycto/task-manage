@@ -158,6 +158,8 @@ CREATE TABLE `t_task_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='定时任务信息表';
 
+ALTER TABLE t_task_details ADD INDEX TaskAndGroupIndex (task_name,group_name);
+
 DROP TABLE IF EXISTS `t_task_records`;
 CREATE TABLE `t_task_records` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
