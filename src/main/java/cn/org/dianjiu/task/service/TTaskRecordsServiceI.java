@@ -4,6 +4,7 @@ import cn.org.dianjiu.task.common.req.TTaskRecordsReq;
 import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
 import cn.org.dianjiu.task.dao.TTaskRecordsDao;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public interface TTaskRecordsServiceI {
     
     int countByEntity(TTaskRecordsReq tTaskRecordsReq);
 
-    TTaskRecordsResp addTaskRecords(Integer id);
+    TTaskRecordsResp addTaskRecords(Integer id) throws ParseException;
 
     int updateRecordById(int num, Integer id,String result);
 }

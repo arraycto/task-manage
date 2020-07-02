@@ -10,7 +10,7 @@
         <result property="sendUrl" column="send_url" jdbcType="VARCHAR"/>
         <result property="sendParam" column="send_param" jdbcType="VARCHAR"/>
         <result property="returnInfo" column="return_info" jdbcType="VARCHAR"/>
-        <result property="executeTime" column="execute_time" jdbcType="INTEGER"/>
+        <result property="executeTime" column="execute_time" jdbcType="TIMESTAMP"/>
         <result property="taskStatus" column="task_status" jdbcType="VARCHAR"/>
         <result property="creator" column="creator" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -59,7 +59,7 @@
                 and return_info = #{returnInfo,jdbcType=VARCHAR}
             </if>
             <if test="executeTime != null">
-                and execute_time = #{executeTime,jdbcType=INTEGER}
+                and execute_time = #{executeTime,jdbcType=TIMESTAMP}
             </if>
             <if test="taskStatus != null">
                 and task_status = #{taskStatus,jdbcType=VARCHAR}
@@ -107,7 +107,7 @@
                 and return_info = #{returnInfo,jdbcType=VARCHAR}
             </if>
             <if test="executeTime != null">
-                and execute_time = #{executeTime,jdbcType=INTEGER}
+                and execute_time = #{executeTime,jdbcType=TIMESTAMP}
             </if>
             <if test="taskStatus != null">
                 and task_status = #{taskStatus,jdbcType=VARCHAR}
@@ -206,7 +206,7 @@
                 #{returnInfo,jdbcType=VARCHAR},
             </if>
             <if test="executeTime != null">
-                #{executeTime,jdbcType=INTEGER},
+                #{executeTime,jdbcType=TIMESTAMP},
             </if>
             <if test="taskStatus != null">
                 #{taskStatus,jdbcType=VARCHAR},
@@ -236,7 +236,7 @@
             (<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>#{item.taskName,jdbcType=VARCHAR},
             #{item.groupName,jdbcType=VARCHAR}, #{item.sendType,jdbcType=VARCHAR}, #{item.sendUrl,jdbcType=VARCHAR},
             #{item.sendParam,jdbcType=VARCHAR}, #{item.returnInfo,jdbcType=VARCHAR},
-            #{item.executeTime,jdbcType=INTEGER}, #{item.taskStatus,jdbcType=VARCHAR}, #{item.creator,jdbcType=VARCHAR},
+            #{item.executeTime,jdbcType=TIMESTAMP}, #{item.taskStatus,jdbcType=VARCHAR}, #{item.creator,jdbcType=VARCHAR},
             #{item.createTime,jdbcType=TIMESTAMP}, #{item.updator,jdbcType=VARCHAR},
             #{item.updateTime,jdbcType=TIMESTAMP})
         </foreach>
@@ -265,7 +265,7 @@
                 return_info = #{returnInfo,jdbcType=VARCHAR},
             </if>
             <if test="executeTime != null">
-                execute_time = #{executeTime,jdbcType=INTEGER},
+                execute_time = #{executeTime,jdbcType=TIMESTAMP},
             </if>
             <if test="taskStatus != null and taskStatus != ''">
                 task_status = #{taskStatus,jdbcType=VARCHAR},
@@ -309,7 +309,7 @@
                 return_info = #{set.returnInfo,jdbcType=VARCHAR},
             </if>
             <if test="where.executeTime == null and set.executeTime != null">
-                execute_time = #{set.executeTime,jdbcType=INTEGER},
+                execute_time = #{set.executeTime,jdbcType=TIMESTAMP},
             </if>
             <if test="where.taskStatus == null and set.taskStatus != null and set.taskStatus != ''">
                 task_status = #{set.taskStatus,jdbcType=VARCHAR},
@@ -350,7 +350,7 @@
                 and return_info = #{where.returnInfo,jdbcType=VARCHAR}
             </if>
             <if test="where.executeTime != null">
-                and execute_time = #{where.executeTime,jdbcType=INTEGER}
+                and execute_time = #{where.executeTime,jdbcType=TIMESTAMP}
             </if>
             <if test="where.taskStatus != null">
                 and task_status = #{where.taskStatus,jdbcType=VARCHAR}
@@ -469,7 +469,7 @@
                 and return_info = #{returnInfo,jdbcType=VARCHAR}
             </if>
             <if test="executeTime != null">
-                and execute_time = #{executeTime,jdbcType=INTEGER}
+                and execute_time = #{executeTime,jdbcType=TIMESTAMP}
             </if>
             <if test="taskStatus != null">
                 and task_status = #{taskStatus,jdbcType=VARCHAR}
@@ -526,7 +526,7 @@
                 and return_info = #{returnInfo,jdbcType=VARCHAR}
             </if>
             <if test="executeTime != null">
-                and execute_time = #{executeTime,jdbcType=INTEGER}
+                and execute_time = #{executeTime,jdbcType=TIMESTAMP}
             </if>
             <if test="taskStatus != null">
                 and task_status = #{taskStatus,jdbcType=VARCHAR}

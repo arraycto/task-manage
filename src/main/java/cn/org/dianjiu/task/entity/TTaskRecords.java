@@ -41,7 +41,7 @@ public class TTaskRecords {
     /**
     * 执行时间
     */
-    private Long executeTime;
+    private Date executeTime;
     /**
     * 任务状态
     */

@@ -3,6 +3,7 @@ package cn.org.dianjiu.task.common.req;
 import lombok.Data;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 定时任务执行情况记录表(TTaskRecordsReq) Req
@@ -27,8 +28,16 @@ public class TTaskRecordsReq implements Serializable {
     @ApiModelProperty("返回信息")
     private String returnInfo;
     @ApiModelProperty("执行时间")
-    private Long executeTime;
+    private Date executeTime;
     @ApiModelProperty("任务状态")
     private String taskStatus;
 
+    public TTaskRecordsReq() {
+    }
+
+    public TTaskRecordsReq(String taskName, String groupName, Date executeTime) {
+        this.taskName = taskName;
+        this.groupName = groupName;
+        this.executeTime = executeTime;
+    }
 }

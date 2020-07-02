@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -222,9 +224,17 @@ public class TTaskRecordsServiceImpl implements TTaskRecordsServiceI {
         TTaskDetailsResp taskDetailsResp = tTaskDetailsService.getById(id);
         //对象拷贝，新增到执行记录表中
         ObjectUtils.copyProperties(taskDetailsResp,tTaskRecordsReq);
+        tTaskRecordsReq.setId(null);
+        tTaskRecordsReq.setExecuteTime(new Date());
         insert(tTaskRecordsReq);
         //查询改记录
-        TTaskRecordsResp tTaskRecordsResp = getByEntity(tTaskRecordsReq);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TTaskRecordsResp tTaskRecordsResp = null;
+        try {
+            tTaskRecordsResp = getByEntity(new TTaskRecordsReq(tTaskRecordsReq.getTaskName(),tTaskRecordsReq.getGroupName(),sdf.parse(sdf.format(tTaskRecordsReq.getExecuteTime()))));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
         if (ObjectUtils.checkObjAllFieldsIsNull(tTaskRecordsResp)) {
             throw new BusinessException("400", "新增定时任务执行记录异常！TaskDetail-ID【"+id+"】");
         }

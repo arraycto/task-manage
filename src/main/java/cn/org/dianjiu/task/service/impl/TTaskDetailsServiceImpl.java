@@ -1,5 +1,6 @@
 package cn.org.dianjiu.task.service.impl;
 
+import cn.org.dianjiu.task.common.constants.Constant;
 import cn.org.dianjiu.task.common.exception.BusinessException;
 import cn.org.dianjiu.task.common.job.DefaultJob;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
@@ -10,6 +11,7 @@ import cn.org.dianjiu.task.common.util.*;
 import cn.org.dianjiu.task.dao.TTaskDetailsDao;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import cn.org.dianjiu.task.entity.TTaskDetails;
+import com.alibaba.fastjson.JSONObject;
 import org.quartz.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -264,6 +266,11 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         return update(tTaskDetailsReq);
     }
 
+    /**
+     * 立即运行
+     * @param id
+     * @return
+     */
     @Override
     public int runtask(Integer id) {
         atomicInteger = new AtomicInteger(0);
@@ -276,6 +283,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         String sendType = taskDetailsResp.getSendType();
         String sendUrl = taskDetailsResp.getSendUrl();
         String sendParam = taskDetailsResp.getSendParam();
+        String cornRule = taskDetailsResp.getCornRule();
         log.info("定时任务被执行:id={},taskNo={},taskName={},groupNo={},groupName={},taskDesc={},sendType={},sendUrl={},sendParam={}",id, taskNo, taskName, groupNo, groupName, taskDesc, sendType, sendUrl, sendParam);
         TTaskRecordsServiceImpl taskRecordsService = SpringUtils.getBean(TTaskRecordsServiceImpl.class);
         TTaskErrorsServiceImpl taskErrorsService = SpringUtils.getBean(TTaskErrorsServiceImpl.class);
@@ -284,6 +292,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         try {
             //保存定时任务的执行记录
             records = taskRecordsService.addTaskRecords(id);
+            log.info(JSONObject.toJSONString(records));
             if (ObjectUtils.checkObjAllFieldsIsNull(records)) {
                 log.info("taskNo={}保存执行记录失败", taskNo);
                 throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
@@ -316,15 +325,45 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             tTaskErrorsReq.setErrorvalue(ExceptionUtils.getExceptionDetail(ex));
             taskErrorsService.insert(tTaskErrorsReq);
         }
-        // TODO 更新任务详情表的下次执行时间和执行记录表的执行状态和返回值
+        // 更新任务详情表的下次执行时间和执行记录表的执行状态和返回值
+        //获取下次执行时间更新到任务表中
+        TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
+        Date nextFireDate = JobUtils.getNextFireDate(cornRule);
+        tTaskDetailsReq.setId(id);
+        tTaskDetailsReq.setCornRule(cornRule);
+        tTaskDetailsReq.setNextExecuteTime(nextFireDate);
+        update(tTaskDetailsReq);
         //更新执行记录的状态和返回值
         taskRecordsService.updateRecordById(atomicInteger.get(), records.getId(),result);
-        return 0;
+        return 1;
     }
 
     @Override
     public void afterPropertiesSet() {
+        initBaseTask();
         initLoadOnlineTasks();
+    }
+
+    private void initBaseTask() {
+        /**
+         * 系统启动的时候会初始化一个任务
+         */
+        int count = countAll();
+        if(count==0){
+            log.info("初始化测试任务");
+            TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
+            tTaskDetailsReq.setTaskNo(JobUtils.getTaskNo());
+            tTaskDetailsReq.setTaskName("local-test");
+            tTaskDetailsReq.setGroupNo(JobUtils.getGroupNo());
+            tTaskDetailsReq.setGroupName("task-manage");
+            tTaskDetailsReq.setTaskDesc("获取定时任务信息");
+            tTaskDetailsReq.setSendType(Constant.GET);
+            tTaskDetailsReq.setSendUrl("127.0.0.1:8080/tTaskDetails/get/1");
+            tTaskDetailsReq.setSendParam("");
+            tTaskDetailsReq.setCornRule("0 0/5 * * * ? ");
+            tTaskDetailsReq.setStatus("1");
+            insert(tTaskDetailsReq);
+        }
     }
 
     /**

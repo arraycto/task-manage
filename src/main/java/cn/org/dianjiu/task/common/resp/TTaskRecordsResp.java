@@ -32,7 +32,7 @@ public class TTaskRecordsResp implements Serializable {
     @ApiModelProperty("返回信息")
     private String returnInfo;
     @ApiModelProperty("执行时间")
-    private Long executeTime;
+    private Date executeTime;
     @ApiModelProperty("任务状态")
     private String taskStatus;
     @ApiModelProperty("创建时间")

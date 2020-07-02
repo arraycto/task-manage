@@ -6,8 +6,8 @@ public class Constant {
      * trigger名称前缀
      */
     public static final String TRIGGER_PREFIX = "Trigger_";
-    public static final String Group_PREFIX = "G_";
-    public static final String TASK_PREFIX = "T_";
+    public static final String Group_PREFIX = "G-";
+    public static final String TASK_PREFIX = "T-";
 
     /**
      * RequestType请求类型

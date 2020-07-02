@@ -169,7 +169,7 @@ CREATE TABLE `t_task_records` (
   `send_url` varchar(64) DEFAULT NULL COMMENT '请求地址',
   `send_param` text DEFAULT NULL COMMENT '请求参数',
   `return_info` text DEFAULT NULL COMMENT '返回信息',
-  `execute_time` bigint(13) NOT NULL COMMENT '执行时间',
+  `execute_time` datetime NOT NULL COMMENT '执行时间',
   `task_status` varchar(16) NOT NULL COMMENT '任务状态',
   `creator` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',

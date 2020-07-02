@@ -9,6 +9,7 @@ import cn.org.dianjiu.task.common.util.*;
 import cn.org.dianjiu.task.service.impl.TTaskDetailsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskErrorsServiceImpl;
 import cn.org.dianjiu.task.service.impl.TTaskRecordsServiceImpl;
+import com.alibaba.fastjson.JSONObject;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,7 @@ public class DefaultJob implements  Job,Serializable {
         try {
             //保存定时任务的执行记录
             records = taskRecordsService.addTaskRecords(id);
+            logger.info(JSONObject.toJSONString(records));
             if (ObjectUtils.checkObjAllFieldsIsNull(records)) {
                 logger.info("taskNo={}保存执行记录失败", taskNo);
                 throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
@@ -90,8 +92,11 @@ public class DefaultJob implements  Job,Serializable {
         }
         // 更新任务详情表的下次执行时间和执行记录表的执行状态和返回值
         //获取下次执行时间更新到任务表中
+        //获取下次执行时间更新到任务表中
         TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
         Date nextFireDate = JobUtils.getNextFireDate(cornRule);
+        tTaskDetailsReq.setId(id);
+        tTaskDetailsReq.setCornRule(cornRule);
         tTaskDetailsReq.setNextExecuteTime(nextFireDate);
         taskDetailsService.update(tTaskDetailsReq);
         //更新执行记录的状态和返回值
