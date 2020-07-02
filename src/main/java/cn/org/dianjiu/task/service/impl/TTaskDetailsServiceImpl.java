@@ -6,10 +6,7 @@ import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.req.TTaskErrorsReq;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
 import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
-import cn.org.dianjiu.task.common.util.ExceptionUtils;
-import cn.org.dianjiu.task.common.util.HttpClientUtils;
-import cn.org.dianjiu.task.common.util.ObjectUtils;
-import cn.org.dianjiu.task.common.util.SpringUtils;
+import cn.org.dianjiu.task.common.util.*;
 import cn.org.dianjiu.task.dao.TTaskDetailsDao;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import cn.org.dianjiu.task.entity.TTaskDetails;
@@ -129,8 +126,10 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
-        //TODO 获取下次执行时间
+        //更新下次执行时间
         Date date = new Date();
+        Date nextFireDate = JobUtils.getNextFireDate(tTaskDetailsReq.getCornRule());
+        tTaskDetails.setNextExecuteTime(nextFireDate);
         tTaskDetails.setCreateTime(date);
         tTaskDetails.setUpdateTime(date);
         return tTaskDetailsDao.insert(tTaskDetails);
@@ -150,7 +149,9 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
                 throw new BusinessException("400","执行批量插入的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
-            //TODO 获取下次执行时间
+            //更新下次执行时间
+            Date nextFireDate = JobUtils.getNextFireDate(tTaskDetailsReq.getCornRule());
+            tTaskDetails.setNextExecuteTime(nextFireDate);
             tTaskDetailss.add(tTaskDetails);
         }
         return tTaskDetailsDao.insertBatch(tTaskDetailss);
@@ -164,7 +165,9 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             throw new BusinessException("400","入参对象不能为空！");
         }
         ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
-        //TODO 更新下次执行时间
+        //更新下次执行时间
+        Date nextFireDate = JobUtils.getNextFireDate(tTaskDetailsReq.getCornRule());
+        tTaskDetails.setNextExecuteTime(nextFireDate);
         tTaskDetails.setUpdateTime(new Date());
         return tTaskDetailsDao.update(tTaskDetails);
     }
@@ -183,7 +186,9 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
                 throw new BusinessException("400","执行批量更新的集合为空！");
             }
             ObjectUtils.copyProperties(tTaskDetailsReq,tTaskDetails);
-            //TODO 更新下次执行时间
+            //更新下次执行时间
+            Date nextFireDate = JobUtils.getNextFireDate(tTaskDetailsReq.getCornRule());
+            tTaskDetails.setNextExecuteTime(nextFireDate);
             tTaskDetailss.add(tTaskDetails);
         }
         return tTaskDetailsDao.updateBatch(tTaskDetailss);
@@ -318,7 +323,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         initLoadOnlineTasks();
     }
 
@@ -328,7 +333,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
      * @throws Exception
      */
     @Override
-    public void initLoadOnlineTasks() throws SchedulerException {
+    public void initLoadOnlineTasks() {
         TTaskDetailsReq tTaskDetailsReq = new TTaskDetailsReq();
         tTaskDetailsReq.setStatus("1");//初始化时只加载有效状态的定时任务
         List<TTaskDetailsResp> tTaskDetailsResps = listByEntity(tTaskDetailsReq);
@@ -362,7 +367,7 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
         jobDataMap.put("sendUrl", tTaskDetails.getSendUrl());
         jobDataMap.put("sendParam", tTaskDetails.getSendParam());
         jobDataMap.put("status", tTaskDetails.getStatus());
-        jobDataMap.put("nextExecuteTime", tTaskDetails.getNextExecuteTime());
+        jobDataMap.put("cornRule", tTaskDetails.getCornRule());
         // 触发时间点
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(tTaskDetails.getCornRule());
         Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger"+tTaskDetails.getTaskName(), tTaskDetails.getGroupName())
