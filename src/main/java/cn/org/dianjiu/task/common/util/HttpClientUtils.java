@@ -1,5 +1,6 @@
 package cn.org.dianjiu.task.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.Charsets;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -27,6 +28,7 @@ import java.util.Map.Entry;
  * @author DianJiu
  * @date 2019/4/9
  */
+@Slf4j
 public class HttpClientUtils {
 
     /**
@@ -47,6 +49,37 @@ public class HttpClientUtils {
     private static final Logger logger = LogManager.getLogger(HttpClientUtils.class);
 
     private HttpClientUtils() {
+    }
+
+    /**
+     * get请求
+     *
+     * @param url
+     * @return
+     */
+    public static String doGet(String url) {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String result = null;
+        // 超时时间设置
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(HTTP_READ_TIMEOUT_3MIN)
+                .setConnectTimeout(HTTP_CONNECT_TIMEOUT_30S).build();
+        try {
+            URIBuilder builder = new URIBuilder(url);
+            // 设置参数
+            HttpGet httpGet = new HttpGet(builder.build());
+            httpGet.setConfig(requestConfig);
+            // 发送请求
+            response = httpclient.execute(httpGet);
+            result = EntityUtils.toString(response.getEntity(), Charsets.UTF_8);
+            if (response.getStatusLine().getStatusCode() != HTTP_SUCCESS_STATUS_CODE) {
+                logger.error("Error in getMap. Request URL is [{}], Result:[{}]", url, result);
+            }
+        } catch (Exception e) {
+            log.error("httpclient get request url=" + url + ",exception=" + e);
+        }
+        return result;
     }
 
     /**
