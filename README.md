@@ -61,15 +61,15 @@ https://gitee.io/dianjiu/task-manage-vue
 
 > 任务信息表
 
-![t_task_details](data/img/t_task_details.png)
+![t_task_details](./data/img/t_task_details.png)
 
 > 执行记录表
 
-![t_task_records](data/img/t_task_records.png)
+![t_task_records](./data/img/t_task_records.png)
 
 > 异常信息表
 
-![t_task_error](data/img/t_task_error.png)
+![t_task_error](./data/img/t_task_error.png)
 
 ## 最后致谢
 感谢以下开源项目提供的项目参考
