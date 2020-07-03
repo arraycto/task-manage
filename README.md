@@ -60,6 +60,13 @@ user 		user
 ## 项目图片
 
 ### 页面演示
+> 登录页
+
+![登录页](./data/img/login.png)
+
+> 仪表盘
+
+![仪表盘](./data/img/dashboard.png)
 
 ### 数据库演示
 
