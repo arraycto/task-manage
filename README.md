@@ -1,6 +1,18 @@
 # Task Manage
+ 
+> 基于SpringBoto的定时轻量级定时任务管理系统
 
-基于SpringBoto的定时轻量级定时任务管理系统 
+[https://github.com/dianjiu/task-manage](https://github.com/dianjiu/task-manage)
+
+[https://gitee.io/dianjiu/task-manage](https://gitee.io/dianjiu/task-manage)
+
+## 相关项目 task-manage-vue
+
+> A vue admin template with Element UI for task-manage
+
+https://github.com/dianjiu/task-manage-vue
+
+https://gitee.io/dianjiu/task-manage-vue
 
 ## 技术选型
 - springboot 2.3.1
@@ -43,15 +55,7 @@ http://task.point9.top/damin   (部署中。。。)
 
 admin 		admin
 
-user 			user
-
-## 相关项目 task-manage-vue
-
-> A vue admin template with Element UI for task-manage
-
-https://github.com/dianjiu/task-manage-vue
-
-https://gitee.io/dianjiu/task-manage-vue
+user 		user
 
 ## 项目图片
 
