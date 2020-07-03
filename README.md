@@ -37,7 +37,39 @@
 
 ## 在线演示
 
+http://task.point9.top/damin   (部署中。。。)
+
+测试账号  	测试密码
+
+admin 		admin
+
+user 			user
+
+## 相关项目 task-manage-vue
+
+> A vue admin template with Element UI for task-manage
+
+https://github.com/dianjiu/task-manage-vue
+
+https://gitee.io/dianjiu/task-manage-vue
+
 ## 项目图片
+
+### 页面演示
+
+### 数据库演示
+
+> 任务信息表
+
+![t_task_details](data/img/t_task_details.png)
+
+> 执行记录表
+
+![t_task_records](data/img/t_task_records.png)
+
+> 异常信息表
+
+![t_task_error](data/img/t_task_error.png)
 
 ## 最后致谢
 感谢以下开源项目提供的项目参考
