@@ -2,8 +2,6 @@ package cn.org.dianjiu.task.entity;
 
 import java.util.Date;
 import lombok.Data;
-                                                    import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 定时任务信息表(TTaskDetails)实体类
  *
