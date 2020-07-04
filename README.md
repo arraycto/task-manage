@@ -2,13 +2,18 @@
  
 > 基于SpringBoot的轻量级定时任务管理系统
 
+![SpringBoot](https://img.shields.io/badge/springboot-2.3.1-green.svg?style=flat-square) [![LICENSE](https://img.shields.io/github/license/dianjiu/task-manage.svg?style=flat-square)](https://github.com/dianjiu/task-manage/blob/master/LICENSE)   [![star](https://img.shields.io/github/stars/dianjiu/task-manage.svg?label=Stars&style=social)](https://github.com/dianjiu/task-manage) [![star](https://gitee.com/dianjiu/task-manage/badge/star.svg?theme=white)](https://gitee.com/dianjiu/task-manage) 
+
 [https://github.com/dianjiu/task-manage](https://github.com/dianjiu/task-manage)
 
 [https://gitee.io/dianjiu/task-manage](https://gitee.io/dianjiu/task-manage)
 
 ## 相关项目 task-manage-vue
 
-> A vue admin template with Element UI for task-manage
+> 基于Vue的Task Manage的后管UI
+
+![VUE](https://img.shields.io/badge/vue-4.0-green.svg?style=flat-square) [![LICENSE](https://img.shields.io/github/license/dianjiu/task-manage-vue.svg?style=flat-square)](https://github.com/dianjiu/task-manage-vue/blob/master/LICENSE)   [![star](https://img.shields.io/github/stars/dianjiu/task-manage-vue.svg?label=Stars&style=social)](https://github.com/dianjiu/task-manage-vue) [![star](https://gitee.com/dianjiu/task-manage-vue/badge/star.svg?theme=white)](https://gitee.com/dianjiu/task-manage-vue) 
+
 
 https://github.com/dianjiu/task-manage-vue
 
