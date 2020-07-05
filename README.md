@@ -19,7 +19,7 @@ https://github.com/dianjiu/task-manage-vue
 
 https://gitee.io/dianjiu/task-manage-vue
 
-## 技术选型
+## 技术选型 
 - springboot 2.3.1
 - SpringSecurity 2.3.1
 - httpclient 4.5.12
