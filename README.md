@@ -95,13 +95,7 @@ https://gitee.io/dianjiu/task-manage-vue
 - [ ] 全异步：任务调度流程全异步化设计实现，如异步调度、异步运行、异步回调等，有效对密集调度进行流量削峰，理论上支持任意时长任务的运行；
 - [x] 跨语言：系统提供语言无关的 RESTFUL API 服务，第三方任意语言可据此对接Task Manage；
 - [x] 国际化：后管系统支持国际化设置，提供中文、英文两种可选语言，默认为中文；
-- [ ] 容器化：提供官方docker镜像，并实时更新推送dockerhub，进一步实现产品开箱即用；
-
-
-## 更新日志
-[博客地址](http://point9.top)
-
-[Task Manage 更新日志](http://point9.top/articles/2020/07/04/1593856335181.html)
+- [ ] 容器化：提供官方docker镜像，并实时更新推送dockerhub，进一步实现产品开箱即用；  
 
 ## 部署方式
 1. 执行sql目录下的task_manage.sql文件，建立task_manage需要的数据库表  
@@ -110,7 +104,7 @@ https://gitee.io/dianjiu/task-manage-vue
 
 ## 在线演示
 
-http://task.point9.top/damin   (部署中。。。)
+http://task.dianjiu.org.cn   (部署中。。。)
 
 测试账号  	测试密码
 
@@ -158,6 +152,15 @@ user 		user
 > 异常信息表
 
 ![t_task_error](./data/img/t_task_error.png)
+
+## 更新日志
+[博客地址](http://point9.top)
+
+[Task Manage 更新日志](http://point9.top/articles/2020/07/04/1593856335181.html)
+
+[Task Manage 分布式ID的思考](http://point9.top/articles/2020/07/05/1593882775705.html)
+
+[Task Manage 执行策略的思考](http://point9.top/articles/2020/07/05/1593884142790.html)  
 
 ## 最后致谢
 感谢以下开源项目提供的项目参考
