@@ -132,7 +132,7 @@ CREATE TABLE `t_task_details`  (
 -- ----------------------------
 -- Records of t_task_details
 -- ----------------------------
-INSERT INTO `t_task_details` VALUES (2, 'T-9f690d82-6276-43a0-a928-ed9030f10f38', 'local-test', 'G-2493d162-c845-4768-9f6e-3f1f09d405fb', 'task-manage', '获取定时任务信息', '0 0/5 * * * ? ', 'GET', '127.0.0.1:8080/tTaskDetails/get/2', '', '1', '2020-07-02 17:15:00', NULL, '2020-07-02 06:50:22', NULL, '2020-07-02 17:12:19');
+INSERT INTO `t_task_details` VALUES (20200705, 'T-9f690d82-6276-43a0-a928-ed9030f10f38', 'local-test', 'G-2493d162-c845-4768-9f6e-3f1f09d405fb', 'task-manage', '获取定时任务信息', '0 0/5 * * * ? ', 'GET', '127.0.0.1:8080/tTaskDetails/get/2', '', '1', '2020-07-02 17:15:00', NULL, '2020-07-02 06:50:22', NULL, '2020-07-02 17:12:19');
 
 -- ----------------------------
 -- Table structure for t_task_errors
