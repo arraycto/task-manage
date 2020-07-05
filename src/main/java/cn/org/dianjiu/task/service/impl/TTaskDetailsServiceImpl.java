@@ -3,8 +3,10 @@ package cn.org.dianjiu.task.service.impl;
 import cn.org.dianjiu.task.common.constants.Constant;
 import cn.org.dianjiu.task.common.exception.BusinessException;
 import cn.org.dianjiu.task.common.job.DefaultJob;
+import cn.org.dianjiu.task.common.req.PageReq;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.req.TTaskErrorsReq;
+import cn.org.dianjiu.task.common.resp.PageResp;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
 import cn.org.dianjiu.task.common.resp.TTaskRecordsResp;
 import cn.org.dianjiu.task.common.util.*;
@@ -12,6 +14,8 @@ import cn.org.dianjiu.task.dao.TTaskDetailsDao;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import cn.org.dianjiu.task.entity.TTaskDetails;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.quartz.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +100,17 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
             list.add(tTaskDetailsResp);
         }
         return list;
+    }
+
+    @Override
+    public PageResp<TTaskDetailsResp> listByPage(PageReq<TTaskDetailsReq> pageReq) {
+        PageResp<TTaskDetailsResp> pageResp = new PageResp<>();
+        PageHelper.startPage(pageReq.getPage(),pageReq.getSize());
+        listByEntity(pageReq.getDate());
+        Page<TTaskDetailsResp> page = new Page<>();
+        pageResp.setTotal((int) page.getTotal());
+        pageResp.setDate(page.getResult());
+        return pageResp;
     }
 
     @Override

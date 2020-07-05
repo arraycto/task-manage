@@ -1,12 +1,15 @@
 package cn.org.dianjiu.task.controller;
 
+import cn.org.dianjiu.task.common.req.PageReq;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
+import cn.org.dianjiu.task.common.resp.PageResp;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
+import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.common.vo.RespVO;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
+import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -130,6 +133,27 @@ public class TTaskDetailsController {
         result.setCode("200");
         result.setMsg("请求成功！");
         result.setData(tTaskDetailsRespList);
+        return result;
+    }
+
+    /**
+     * 通过实体不为空的属性作为筛选条件查询对象列表
+     *
+     * @param  pageReq 实例对象
+     * @return 对象列表
+     */
+    @RequestMapping(value = "/listByPage", method = RequestMethod.POST)
+    public RespVO<PageResp<TTaskDetailsResp>> listByPage(@RequestBody PageReq<TTaskDetailsReq> pageReq) {
+        RespVO<PageResp<TTaskDetailsResp>> result = new RespVO<>();
+        PageResp<TTaskDetailsResp> pageResp = tTaskDetailsService.listByPage(pageReq);
+        if (ObjectUtils.checkObjAllFieldsIsNull(pageResp)) {
+            result.setCode("400");
+            result.setMsg("没有查到数据！");
+            return result;
+        }
+        result.setCode("200");
+        result.setMsg("请求成功！");
+        result.setData(pageResp);
         return result;
     }
 

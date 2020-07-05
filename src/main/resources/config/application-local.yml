@@ -37,6 +37,13 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+#pagehelper分页配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
 # 日志配置
 logging:
   config: classpath:logback.xml
