@@ -76,7 +76,7 @@ public class TTaskDetailsController {
      * @param id 主键
      * @return 实例对象
      */
-    @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public RespVO<TTaskDetailsResp> getById(@PathVariable Integer id) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         TTaskDetailsResp tTaskDetailsResp = tTaskDetailsService.getById(id);
@@ -97,8 +97,8 @@ public class TTaskDetailsController {
      * @param tTaskDetailsReq
      * @return 实例对象
      */
-    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<TTaskDetailsResp> getByEntity(TTaskDetailsReq tTaskDetailsReq) {
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public RespVO<TTaskDetailsResp> getByEntity(@RequestBody TTaskDetailsReq tTaskDetailsReq) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         TTaskDetailsResp tTaskDetailsResp = tTaskDetailsService.getByEntity(tTaskDetailsReq);
         if (null == tTaskDetailsResp) {
@@ -118,8 +118,8 @@ public class TTaskDetailsController {
      * @param tTaskDetailsReq 实例对象
      * @return 对象列表
      */
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RespVO<List> list(TTaskDetailsReq tTaskDetailsReq) {
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public RespVO<List> list(@RequestBody TTaskDetailsReq tTaskDetailsReq) {
         RespVO<List> result = new RespVO<>();
         List<TTaskDetailsResp> tTaskDetailsRespList = tTaskDetailsService.listByEntity(tTaskDetailsReq);
         if (null == tTaskDetailsRespList || tTaskDetailsRespList.isEmpty()) {
@@ -139,7 +139,7 @@ public class TTaskDetailsController {
      * @param tTaskDetailsReq 实例对象
      * @return 实例对象
      */
-    @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public RespVO<TTaskDetailsResp> insert(@RequestBody @Validated TTaskDetailsReq tTaskDetailsReq) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int insert = tTaskDetailsService.insert(tTaskDetailsReq);
@@ -159,7 +159,7 @@ public class TTaskDetailsController {
      * @param tTaskDetailsReq 实例对象
      * @return 实例对象
      */
-    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public RespVO<TTaskDetailsResp> update(@RequestBody @Validated TTaskDetailsReq tTaskDetailsReq) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int update = tTaskDetailsService.update(tTaskDetailsReq);
@@ -179,7 +179,7 @@ public class TTaskDetailsController {
      * @param id 主键
      * @return 实例对象
      */
-    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public RespVO<TTaskDetailsResp> deleteOne(@PathVariable Integer id) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int delete = tTaskDetailsService.deleteById(id);
@@ -199,7 +199,7 @@ public class TTaskDetailsController {
      * @param ids 实例对象
      * @return 实例对象
      */
-    @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public RespVO<TTaskDetailsResp> deleteBatch(@RequestBody List<Integer> ids) {
         RespVO<TTaskDetailsResp> result = new RespVO<>();
         int dels = 0;
