@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Dianjiu on 2020/2/15.
@@ -21,15 +22,19 @@ public class ObjectUtils {
      * @return
      */
     public static boolean checkObjAllFieldsIsNull(Object object) {
+        boolean flag = true;
         if (null == object) {
-            return true;
+            return flag;
         }
-
         try {
+            // 取到obj的class, 并取到所有属性,并遍历
             for (Field f : object.getClass().getDeclaredFields()) {
+                // 设置私有属性也是可以访问的
                 f.setAccessible(true);
-                if (f.get(object) != null && ObjectUtils.isNotBlank(f.get(object).toString())) {
-                    return false;
+                //属性值不为空, 且属性值转换成String不为"" 则对象一定不为空，返回false
+                if ( null != f.get(object) && ObjectUtils.isNotBlank(f.get(object).toString())) {
+                    flag = false;
+                    return flag;
                 }
             }
         } catch (Exception e) {
@@ -37,7 +42,48 @@ public class ObjectUtils {
             e.printStackTrace();
         }
 
-        return true;
+        return flag;
+    }
+
+    public static boolean checkObjAllFieldsIsNotNull(Object object){
+        return !checkObjAllFieldsIsNull(object);
+    }
+
+    public static boolean checkObjAllFieldsIsNull(Object object, List<String> excludeNames){
+        boolean flag = true;
+        if (null == object) {
+            return flag;
+        }
+        try {
+            // 取到obj的class, 并取到所有属性,并遍历
+            for (Field f : object.getClass().getDeclaredFields()) {
+                // 设置私有属性也是可以访问的
+                f.setAccessible(true);
+                // 1.排除不包括的属性名, 2.属性值为空, 3.属性值转换成String为""
+                if (null != excludeNames){
+                    if(!excludeNames.contains(f.getName())) {
+                        //属性值不为空, 且属性值转换成String不为"" 则对象一定不为空，返回false
+                        if ( null != f.get(object) && ObjectUtils.isNotBlank(f.get(object).toString())) {
+                            flag = false;
+                            return flag;
+                        }
+                    }
+                }else {
+                    //属性值不为空, 且属性值转换成String不为"" 则对象一定不为空，返回false
+                    if ( null != f.get(object) && ObjectUtils.isNotBlank(f.get(object).toString())) {
+                        flag = false;
+                        return flag;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("判断对象属性为空异常", e);
+        }
+        return flag;
+    }
+
+    public static boolean checkObjAllFieldsIsNotNull(Object object, List<String> excludeNames){
+        return !checkObjAllFieldsIsNull(object,excludeNames);
     }
 
     /**
