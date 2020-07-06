@@ -55,7 +55,8 @@ public class DefaultJob implements  Job,Serializable {
         TTaskRecordsServiceImpl taskRecordsService = SpringUtils.getBean(TTaskRecordsServiceImpl.class);
         TTaskErrorsServiceImpl taskErrorsService = SpringUtils.getBean(TTaskErrorsServiceImpl.class);
         TTaskRecordsResp records = null;
-        String result = "";if (ObjectUtils.isBlank(sendParam)) {
+        String result = "";
+        if (ObjectUtils.isBlank(sendParam)) {
             sendParam = "";
         }
         try {
@@ -69,7 +70,10 @@ public class DefaultJob implements  Job,Serializable {
 
             if (Constant.POST_JSON.equals(sendType)) {
                 try {
-                    result = HttpClientUtils.postJson(sendUrl, sendParam);
+                    //result = HttpClientUtils.postJson(sendUrl, sendParam);
+                    HttpPostJsonType httpPostJsonType = new HttpPostJsonType();
+                    httpPostJsonType.setExecuteStrategy(new HttpPostJsonJob(sendUrl,sendParam));
+                    result = httpPostJsonType.runTask();
                     logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
                     if (ObjectUtils.isBlank(result)) {
                         throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
@@ -82,7 +86,10 @@ public class DefaultJob implements  Job,Serializable {
             if(Constant.POST_FORM_DATA.equals(sendType)){
                 HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
                 try {
-                    result = HttpClientUtils.postFormData(sendUrl, hashMap);
+                    //result = HttpClientUtils.postFormData(sendUrl, hashMap);
+                    HttpPostFormType httpPostFormType = new HttpPostFormType();
+                    httpPostFormType.setExecuteStrategy(new HttpPostFormJob(sendUrl,hashMap));
+                    result = httpPostFormType.runTask();
                     logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
                     if (ObjectUtils.isBlank(result)) {
                         throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
@@ -95,7 +102,10 @@ public class DefaultJob implements  Job,Serializable {
             if(Constant.GET.equals(sendType)){
                 HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
                 try {
-                    result = HttpClientUtils.getMap(sendUrl, hashMap);
+                    //result = HttpClientUtils.getMap(sendUrl, hashMap);
+                    HttpGetType httpGetType = new HttpGetType();
+                    httpGetType.setExecuteStrategy(new HttpGetJob(sendUrl,hashMap));
+                    result = httpGetType.runTask();
                     logger.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
                     if (ObjectUtils.isBlank(result)) {
                         throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");

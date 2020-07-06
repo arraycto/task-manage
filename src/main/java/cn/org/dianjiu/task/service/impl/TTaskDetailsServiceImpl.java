@@ -2,7 +2,7 @@ package cn.org.dianjiu.task.service.impl;
 
 import cn.org.dianjiu.task.common.constants.Constant;
 import cn.org.dianjiu.task.common.exception.BusinessException;
-import cn.org.dianjiu.task.common.job.DefaultJob;
+import cn.org.dianjiu.task.common.job.*;
 import cn.org.dianjiu.task.common.req.PageReq;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
 import cn.org.dianjiu.task.common.req.TTaskErrorsReq;
@@ -13,6 +13,7 @@ import cn.org.dianjiu.task.common.util.*;
 import cn.org.dianjiu.task.dao.TTaskDetailsDao;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import cn.org.dianjiu.task.entity.TTaskDetails;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -313,9 +315,12 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
                 throw new BusinessException("400","【taskNo】"+taskNo+"保存执行记录失败");
             }
 
-            if ("postJson".equals(sendType)) {
+            if (Constant.POST_JSON.equals(sendType)) {
                 try {
-                    result = HttpClientUtils.postJson(sendUrl, sendParam);
+                    //result = HttpClientUtils.postJson(sendUrl, sendParam);
+                    HttpPostJsonType httpPostJsonType = new HttpPostJsonType();
+                    httpPostJsonType.setExecuteStrategy(new HttpPostJsonJob(sendUrl,sendParam));
+                    result = httpPostJsonType.runTask();
                     log.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
                     if (ObjectUtils.isBlank(result)) {
                         throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
@@ -325,11 +330,37 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
                     throw ex;
                 }
             }
-            if("postFrom".equals(sendType)){
-                // TODO
+            if(Constant.POST_FORM_DATA.equals(sendType)){
+                HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
+                try {
+                    //result = HttpClientUtils.postFormData(sendUrl, hashMap);
+                    HttpPostFormType httpPostFormType = new HttpPostFormType();
+                    httpPostFormType.setExecuteStrategy(new HttpPostFormJob(sendUrl,hashMap));
+                    result = httpPostFormType.runTask();
+                    log.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
+                    if (ObjectUtils.isBlank(result)) {
+                        throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
+                    }
+                } catch (Exception ex) {
+                    log.error(ExceptionUtils.getExceptionDetail(ex));
+                    throw ex;
+                }
             }
-            if("get".equals(sendType)){
-                // TODO
+            if(Constant.GET.equals(sendType)){
+                HashMap hashMap = JSON.parseObject(sendParam, HashMap.class);
+                try {
+                    //result = HttpClientUtils.getMap(sendUrl, hashMap);
+                    HttpGetType httpGetType = new HttpGetType();
+                    httpGetType.setExecuteStrategy(new HttpGetJob(sendUrl,hashMap));
+                    result = httpGetType.runTask();
+                    log.info("taskNo={},sendtype={}执行结果result{}", taskNo, sendType, result);
+                    if (ObjectUtils.isBlank(result)) {
+                        throw new RuntimeException("taskNo=" + taskNo + "http方式返回null");
+                    }
+                } catch (Exception ex) {
+                    log.error(ExceptionUtils.getExceptionDetail(ex));
+                    throw ex;
+                }
             }
         } catch (Exception ex) {
             log.error("定时任务执行异常:id={},taskNo={},taskName={},groupNo={},groupName={},taskDesc={},sendType={},sendUrl={},sendParam={}",id, taskNo, taskName, groupNo, groupName, taskDesc, sendType, sendUrl, sendParam);
