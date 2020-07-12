@@ -102,17 +102,14 @@ https://gitee.io/dianjiu/task-manage-vue
 ## 部署方式
 1. 执行sql目录下的task_manage.sql文件，建立task_manage需要的数据库表  
 2. 修改application-local.yml中的数据库连接方式
-3. 访问 http://localhost:8080/idnex.html 可通过web界面进行定时任务的管理
+3. 通过ftp上传task-manage-1.0-SNAPSHOT.jar、start.sh、stop.sh到服务器指定目录
+4. 进入服务器目录，执行 nohup sh start.sh & 命令启动成功
+5. 查看程序启动进程 netstat -anp | grep 18080
+6. 访问 http://localhost:18080/idnex.html 可通过web界面进行定时任务的管理
 
 ## 在线演示
 
 http://task.dianjiu.org.cn   (部署中。。。)
-
-测试账号  	测试密码
-
-admin 		admin
-
-user 		user
 
 ## 项目图片
 
