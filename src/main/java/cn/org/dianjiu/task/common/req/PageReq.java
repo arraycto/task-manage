@@ -1,40 +1,42 @@
 package cn.org.dianjiu.task.common.req;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.List;
 
-/**
- * @Auther: Point9
- * @Date: 2020/1/14 21:44
- */
 @Getter
 @Setter
+@ApiModel(value="分页入参对象",description="分页入参对象")
 public class PageReq<T> implements Serializable {
+    /**
+     * 生成的serialVersionUID
+     */
+    private static final long serialVersionUID = 5231134212346077681L;
 
-    private static final long serialVersionUID = 2914853172898904181L;
-
-    @ApiModelProperty("当前页")
-    private Integer page;
-    @ApiModelProperty("页大小")
-    private Integer size;
-    @ApiModelProperty("响应数据")
-    private T date;
+    @ApiModelProperty(value="当前页")
+    @NotEmpty(message = "当前页不能为空")
+    private int pageNum;
+    @ApiModelProperty(value="页大小")
+    @NotEmpty(message = "页大小不能为空")
+    private int pageSize;
+    @ApiModelProperty("其他查询条件")
+    private T data;
 
     public PageReq() {
     }
 
-    public PageReq(Integer page, Integer size) {
-        this.page = page;
-        this.size = size;
+    public PageReq(int pageNum, int pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
     }
 
-    public PageReq(Integer page, Integer size, T date) {
-        this.page = page;
-        this.size = size;
-        this.date = date;
+    public PageReq(int pageNum, int pageSize, T data) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.data = data;
     }
 }

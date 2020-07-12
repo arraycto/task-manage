@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.quartz.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,14 +106,18 @@ public class TTaskDetailsServiceImpl implements TTaskDetailsServiceI, Initializi
     }
 
     @Override
-    public PageResp<TTaskDetailsResp> listByPage(PageReq<TTaskDetailsReq> pageReq) {
-        PageResp<TTaskDetailsResp> pageResp = new PageResp<>();
-        PageHelper.startPage(pageReq.getPage(),pageReq.getSize());
-        listByEntity(pageReq.getDate());
-        Page<TTaskDetailsResp> page = new Page<>();
-        pageResp.setTotal((int) page.getTotal());
-        pageResp.setDate(page.getResult());
-        return pageResp;
+    public PageInfo<TTaskDetailsResp> listByPage(PageReq<TTaskDetailsReq> pageReq) {
+        //获取第1页，10条内容，默认查询总数count
+        //PageHelper.startPage(1, 10);
+        //紧跟着的第一个select方法会被分页
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        PageHelper.startPage(pageReq.getPageNum(),pageReq.getPageSize());
+        List<TTaskDetailsResp> list = listByEntity(pageReq.getData());
+        //PageInfo<Object> objectPageInfo = new PageInfo<>();
+        PageInfo<TTaskDetailsResp> pages = new PageInfo<>(list);
+        //分页时，实际返回的结果list类型是Page<E>，如果想取出分页信息，需要强制转换为Page<E>
+        //Page<TTaskDetailsResp> pages = (Page<TTaskDetailsResp>) list;
+        return pages;
     }
 
     @Override

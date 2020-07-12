@@ -8,6 +8,8 @@ import cn.org.dianjiu.task.common.util.ObjectUtils;
 import cn.org.dianjiu.task.common.vo.RespVO;
 import cn.org.dianjiu.task.service.TTaskDetailsServiceI;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -142,18 +144,25 @@ public class TTaskDetailsController {
      * @param  pageReq 实例对象
      * @return 对象列表
      */
-    @RequestMapping(value = "/listByPage", method = RequestMethod.POST)
-    public RespVO<PageResp<TTaskDetailsResp>> listByPage(@RequestBody PageReq<TTaskDetailsReq> pageReq) {
-        RespVO<PageResp<TTaskDetailsResp>> result = new RespVO<>();
-        PageResp<TTaskDetailsResp> pageResp = tTaskDetailsService.listByPage(pageReq);
-        if (ObjectUtils.checkObjAllFieldsIsNull(pageResp)) {
+    @ApiOperation(value="分页获取任务列表接口",notes="当前页和页大小必传")
+    @RequestMapping(value = "/listByPage",method = RequestMethod.POST)
+    public RespVO<PageResp> listByPage(@RequestBody PageReq<TTaskDetailsReq> pageReq){
+        PageResp<List<TTaskDetailsResp>> pageVO = new PageResp<>();
+        RespVO<PageResp> result = new RespVO<>();
+        PageInfo<TTaskDetailsResp> pages = tTaskDetailsService.listByPage(pageReq);
+        if (ObjectUtils.checkObjAllFieldsIsNull(pages)) {
             result.setCode("400");
             result.setMsg("没有查到数据！");
             return result;
         }
+        pageVO.setTotal(pages.getTotal());
+        pageVO.setPages(pages.getPages());
+        pageVO.setPageNum(pages.getPageNum());
+        pageVO.setPageSize(pages.getPageSize());
+        pageVO.setData(pages.getList());
         result.setCode("200");
         result.setMsg("请求成功！");
-        result.setData(pageResp);
+        result.setData(pageVO);
         return result;
     }
 

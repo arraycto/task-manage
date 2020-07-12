@@ -1,47 +1,32 @@
 package cn.org.dianjiu.task.common.resp;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * @Auther: Point9
- * @Date: 2020/1/14 21:44
- */
+ * Created by limengwei on 2019-11-25
+ **/
 @Getter
 @Setter
+@ApiModel(value="分页响应对象",description="分页响应对象")
 public class PageResp<T> implements Serializable {
-
-    private static final long serialVersionUID = 2914853172898904181L;
+    /**
+     * 生成的serialVersionUID
+     */
+    private static final long serialVersionUID = 5231134212346077681L;
 
     @ApiModelProperty("当前页")
-    private Integer page;
+    private int pageNum;
     @ApiModelProperty("页大小")
-    private Integer size;
+    private int pageSize;
     @ApiModelProperty("总条数")
-    private Integer total;
-    @ApiModelProperty("响应数据")
-    private List<T> date;
-
-    public PageResp() {
-    }
-
-    public PageResp(Integer page, Integer size) {
-        this.page = page;
-        this.size = size;
-    }
-
-    public PageResp(Integer total, List<T> date) {
-        this.total = total;
-        this.date = date;
-    }
-
-    public PageResp(Integer page, Integer size, List<T> date) {
-        this.page = page;
-        this.size = size;
-        this.date = date;
-    }
+    private long total;
+    @ApiModelProperty("总页数")
+    private int pages;
+    @ApiModelProperty("结果集")
+    private T data;
 }

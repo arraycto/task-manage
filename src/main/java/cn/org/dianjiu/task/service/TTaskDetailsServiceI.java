@@ -2,9 +2,8 @@ package cn.org.dianjiu.task.service;
 
 import cn.org.dianjiu.task.common.req.PageReq;
 import cn.org.dianjiu.task.common.req.TTaskDetailsReq;
-import cn.org.dianjiu.task.common.resp.PageResp;
 import cn.org.dianjiu.task.common.resp.TTaskDetailsResp;
-import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.quartz.SchedulerException;
 
 import java.util.List;
@@ -49,5 +48,5 @@ public interface TTaskDetailsServiceI {
 
     void initLoadOnlineTasks() throws SchedulerException;
 
-    PageResp<TTaskDetailsResp> listByPage(PageReq<TTaskDetailsReq> pageReq);
+    PageInfo<TTaskDetailsResp> listByPage(PageReq<TTaskDetailsReq> pageReq);
 }
