@@ -19,3 +19,11 @@ spring:
   profiles:
     active: ${cfg.env}
 
+# 日志配置
+logback:
+  appName: task-manage
+  fileType: log
+
+logging:
+  config: classpath:logback-spring.xml
+

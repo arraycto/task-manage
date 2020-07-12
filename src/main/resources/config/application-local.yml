@@ -45,8 +45,10 @@ pagehelper:
   params: count=countSql
 
 # 日志配置
+logback:
+  logDir: log/local
+
 logging:
-  config: classpath:logback.xml
   level:
     cn.org.dianjiu.task: debug
     org.springframework: warn
