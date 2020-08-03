@@ -3,6 +3,7 @@ package cn.org.dianjiu.task.entity;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * (TUser)实体类
@@ -25,6 +26,10 @@ public class TUser {
     */
     private String password;
     /**
+     * 状态
+     */
+    private Integer status;
+    /**
      * 创建人
      */
     private String creator;
@@ -40,4 +45,5 @@ public class TUser {
      * 修改时间
      */
     private Date updateTime;
+
 }

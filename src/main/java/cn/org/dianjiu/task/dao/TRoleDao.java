@@ -3,6 +3,8 @@ package cn.org.dianjiu.task.dao;
 import cn.org.dianjiu.task.entity.TRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -115,5 +117,7 @@ public interface TRoleDao {
     int countAll();
     
     int countByEntity(TRole tRole);
-    
+
+    @Select(" select r.* from t_role r,t_user_roles ur where r.id=ur.role_id and ur.user_id=#{adminId} ")
+    List<TRole> getRoleListByUserID(@Param("adminId") Integer adminId);
 }

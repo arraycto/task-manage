@@ -3,11 +3,27 @@ package cn.org.dianjiu.task.service.impl;
 import cn.org.dianjiu.task.common.exception.BusinessException;
 import cn.org.dianjiu.task.common.req.TUserReq;
 import cn.org.dianjiu.task.common.resp.TUserResp;
+import cn.org.dianjiu.task.common.util.JwtTokenUtil;
 import cn.org.dianjiu.task.common.util.ObjectUtils;
+import cn.org.dianjiu.task.dao.TMenuDao;
+import cn.org.dianjiu.task.dao.TRoleDao;
 import cn.org.dianjiu.task.dao.TUserDao;
+import cn.org.dianjiu.task.entity.TMenu;
+import cn.org.dianjiu.task.entity.TRole;
+import cn.org.dianjiu.task.entity.User;
 import cn.org.dianjiu.task.service.TUserServiceI;
 import cn.org.dianjiu.task.entity.TUser;
+import lombok.Value;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,9 +40,83 @@ import java.util.List;
 @Slf4j
 @Service
 public class TUserServiceImpl implements TUserServiceI {
-
+    @Autowired
+    private TUserDetailService userDetailsService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
     @Autowired
     private TUserDao tUserDao;
+    @Autowired
+    private TRoleDao tRoleDao;
+    @Autowired
+    private TMenuDao tMenuDao;
+
+    @Override
+    public TUser getUserByUsername(String username) {
+        TUser tUserReq = new TUser();
+        tUserReq.setUsername(username);
+        TUser userResp = tUserDao.getByEntity(tUserReq);
+        if(null != userResp){
+            throw new UsernameNotFoundException("用户不存在");
+        }
+        return userResp;
+    }
+
+    @Override
+    public TUser register(TUser userParam) {
+        if(ObjectUtils.checkObjAllFieldsIsNull(userParam)){
+            //TODO 抛出自定义异常，对象或者属性为空的异常
+        }
+        //查询是否有相同用户名的用户
+        TUser tUser = new TUser();
+        tUser.setUsername(userParam.getUsername());
+        TUser userResp = tUserDao.getByEntity(tUser);
+        if(null != userResp){
+            //TODO 抛出自定义异常，添加数据重复的异常
+        }
+        ObjectUtils.copyProperties(userParam,tUser);
+        tUser.setCreateTime(new Date());
+        tUser.setStatus(1);
+        //将密码进行加密操作
+        String encodePassword = passwordEncoder.encode(userParam.getPassword());
+        tUser.setPassword(encodePassword);
+        int insert = tUserDao.insert(tUser);
+        if(insert>0){
+            return tUser;
+        }
+        return null;
+    }
+
+    @Override
+    public String login(String username, String password) {
+        String token = null;
+        try {
+            User user = userDetailsService.loadUserByUsername(username);
+            if (!passwordEncoder.matches(password, user.getPassword())) {
+                throw new BadCredentialsException("密码不正确");
+            }
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            token = jwtTokenUtil.generateToken(user);
+        } catch (AuthenticationException e) {
+            log.error("登录异常:{}", e.getMessage());
+        }
+        return token;
+    }
+
+    @Override
+    public List<TRole> getRoleListByUserID(Integer adminId) {
+        return tRoleDao.getRoleListByUserID(adminId);
+    }
+
+    @Override
+    public List<TMenu> getMenuListByUserID(Integer adminId) {
+        return tMenuDao.getMenuListByUserID(adminId);
+    }
 
     @Override
     public TUserResp getById(Integer id) {

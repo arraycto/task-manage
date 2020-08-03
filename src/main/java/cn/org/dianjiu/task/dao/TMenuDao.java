@@ -3,6 +3,7 @@ package cn.org.dianjiu.task.dao;
 import cn.org.dianjiu.task.entity.TMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -117,5 +118,7 @@ public interface TMenuDao {
     int countAll();
     
     int countByEntity(TMenu tMenu);
-    
+
+    @Select(" select m.* from t_menu m,t_role_menus rm,t_user_roles ur where m.id=rm.menu_id and rm.role_id=ur.role_id and ur.user_id==#{adminId} ")
+    List<TMenu> getMenuListByUserID(@Param("adminId")Integer adminId);
 }
